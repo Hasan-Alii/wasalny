@@ -1,6 +1,6 @@
 # wasalny
 
-A new Flutter project.
+A transportation mobile application for college students that should provide them with comfortable, secure, affordable, and punctuate transportation for their universities.
 
 ## Getting Started
 
