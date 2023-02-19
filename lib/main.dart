@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uber/ziad_screens/book_trip.dart';
 import 'package:uber/ziad_screens/login_screen.dart';
 import 'package:uber/ziad_screens/register_screen.dart';
+import 'package:uber/ziad_screens/review.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: BookTripScreen(),
+      home: ReviewScreen(),
     );
   }
 }
