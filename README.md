@@ -2,15 +2,9 @@
 
 A transportation mobile application for college students that should provide them with comfortable, secure, affordable, and punctuate transportation for their universities.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Materials
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [google drive materials](https://drive.google.com/drive/folders/19RJ5PsIpXKIxOJWlgueH3bHwWVwe3fJW?usp=sharing)
+- [view mid-year presentation](https://prezi.com/i/loxtrhbssadv/p/).
+- [front-end discord channel](https://discord.com/channels/981555988924608593/1075466714281689238)
