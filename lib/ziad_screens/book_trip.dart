@@ -142,32 +142,35 @@ class _BookTripScreenState extends State<BookTripScreen>
                       child: Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              width: 190.0,
-                              height: 49.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF1F1F1),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0,right: 10.0),
-                                    child: Icon(
-                                      Icons.monetization_on,
-                                      color: Colors.yellow,
+                            child: Padding(
+                              padding: const EdgeInsets.only( right: 8.0),
+                              child: Container(
+                                width: 190.0,
+                                height: 49.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF1F1F1),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0,right: 10.0),
+                                      child: Icon(
+                                        Icons.monetization_on,
+                                        color: Colors.yellow,
+                                      ),
                                     ),
-                                  ),
-                                  Text("Cash"),
-                                  SizedBox(width: 50.0,),
-                                  Icon(Icons.arrow_forward_ios),
-                                ],
+                                    Text("Cash"),
+                                    SizedBox(width: 50.0,),
+                                    Icon(Icons.arrow_forward_ios),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
 
-                          Padding(
-                            padding: const EdgeInsets.only(left:16.0, right: 16.0),
-                            child: Expanded(
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 15.0),
                               child: Container(
                                 width: 190.0,
                                 height: 49.0,
