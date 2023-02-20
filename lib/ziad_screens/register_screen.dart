@@ -80,6 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
                   controller: _nameController,
+                    keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.person_outline),
                     border: OutlineInputBorder(
@@ -93,6 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, bottom: 20.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.email_outlined),
@@ -107,6 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, bottom: 20.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.phone,
                   controller: _mobileNumberController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.phone),
