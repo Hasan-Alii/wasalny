@@ -82,16 +82,14 @@ class _BookTripScreenState extends State<BookTripScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: loginBlue,
+          elevation: 50.0,
           leading: IconButton(
             onPressed: ()
             {
               Navigator.pop(context);
             },
-            icon: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Icon(Icons.arrow_back_outlined, color: Color(0xFF040C4D), size: 30.0,),
-            ),
+            icon: Icon(Icons.arrow_back_outlined, color: Colors.white, size: 30.0,),
           )
       ),
       body: Stack(

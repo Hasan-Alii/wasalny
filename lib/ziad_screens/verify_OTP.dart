@@ -1,122 +1,148 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:pinput/pinput.dart';
+import 'package:uber/ziad_screens/phone.dart';
 
-class VerifyOTPScreen extends StatelessWidget {
-  const VerifyOTPScreen({Key? key}) : super(key: key);
+import '../shared/styles/colors.dart';
+
+class OTPScreen extends StatefulWidget {
+  const OTPScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OTPScreen> createState() => _OTPScreenState();
+}
+
+class _OTPScreenState extends State<OTPScreen> {
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
+
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+      borderRadius: BorderRadius.circular(8),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        color: Color.fromRGBO(234, 239, 243, 1),
+      ),
+    );
+
+    var otp = "";
+
     return Scaffold(
-      appBar: AppBar(title: Text('Verify OTP')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Verification code',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline6,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'We have sent the verification code to',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .subtitle1,
-            ),
-            const SizedBox(height: 32),
-            SizedBox(
-              height: 68,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildPinField(context),
-                  _buildPinField(context),
-                  _buildPinField(context),
-                  _buildPinField(context),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            GestureDetector(
-              onTap: () {
-                // TODO: Implement change phone number functionality
-              },
-              child: Text(
-                'Change phone number?',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_rounded),
+          color: Colors.black,
+        ),
+      ),
+      body: Container(
+        margin: EdgeInsets.only(left: 25.0,right: 25.0),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/OTP.png', width: 150.0,height: 150.0,),
+              SizedBox(height: 25.0,),
+              Text(
+                'Phone Verification',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+              SizedBox(height: 10.0,),
+              Text(
+                'We need to register your phone before getting started !',
+                style: TextStyle(
+                  fontSize: 17,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              Pinput(
+                length: 6,
+                pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                showCursor: true,
+                onChanged: (value)
+                {
+                    otp = value;
+                },
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              SizedBox(
+                height: 45.0,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    try
+                    {
+                      // Create a PhoneAuthCredential with the code
+                      PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: PhoneOTPScreen.verify, smsCode: otp);
 
-  Widget _buildPinField(BuildContext context) {
-    final textEditingController = TextEditingController();
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 68,
-        width: 64,
-        child: TextField(
-          controller: textEditingController,
-          autofocus: true,
-          textAlign: TextAlign.center,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            hintText: "0",
-            hintStyle: TextStyle(
-              color: Colors.black.withOpacity(0.3),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 16.0,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide:
-              BorderSide(color: Theme
-                  .of(context)
-                  .colorScheme
-                  .secondary),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(8),
-            ),
+                      // Sign the user in (or link) with the credential
+                      await auth.signInWithCredential(credential);
+                      
+                      Navigator.pushNamedAndRemoveUntil(context, "book_trip", (route) => false);
+                    }
+                    catch(e){
+                      print("Wrong otp");
+                    }
+
+                  },
+                  child: Text(
+                    'Verify phone number',
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: loginBlue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(context, 'phone', (route) => false);
+                      },
+                      child: Text(
+                        'Edit Phone Number ?',
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          style: Theme
-              .of(context)
-              .textTheme
-              .headline6,
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(1),
-            FilteringTextInputFormatter.digitsOnly,
-          ],
-          onChanged: (value) {
-            if (value.isNotEmpty) {
-              FocusScope.of(context).nextFocus();
-            }
-          },
-          onTap: () {
-            if (textEditingController.text.isEmpty) {
-              textEditingController.clear();
-            }
-          },
         ),
       ),
     );
-  }
-}
+}}
