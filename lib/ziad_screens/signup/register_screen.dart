@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../shared/styles/colors.dart';
+import '../../shared/styles/colors.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _mobileNumberController = TextEditingController();
+  // final TextEditingController _mobileNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _passwordVisible = false;
@@ -27,7 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
-    _mobileNumberController.dispose();
+    // _mobileNumberController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -105,21 +105,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, bottom: 20.0),
-                child: TextFormField(
-                  keyboardType: TextInputType.phone,
-                  controller: _mobileNumberController,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.phone),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.5),
-                    ),
-                    labelText: "Mobile number",
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       left: 20.0, right: 20.0, bottom: 20.0),
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.phone,
+              //     controller: _mobileNumberController,
+              //     decoration: InputDecoration(
+              //       prefixIcon: Icon(Icons.phone),
+              //       border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(4.5),
+              //       ),
+              //       labelText: "Mobile number",
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, bottom: 9.0),
@@ -153,9 +153,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: 363.0,
                   height: 57.0,
                   child: TextButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.pushNamed(context, "phone_signup");
+                    },
                     child: Text(
-                      "Sign up",
+                      "Next",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18.2,

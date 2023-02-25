@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:uber/ziad_screens/phone.dart';
+import 'package:uber/ziad_screens/signup/phone.dart';
 
-import '../shared/styles/colors.dart';
+import '../../shared/styles/colors.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({Key? key}) : super(key: key);
@@ -107,7 +107,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       // Sign the user in (or link) with the credential
                       await auth.signInWithCredential(credential);
                       
-                      Navigator.pushNamedAndRemoveUntil(context, "book_trip", (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
                     }
                     catch(e){
                       print("Wrong otp");
@@ -129,7 +129,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 children: [
                   TextButton(
                       onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(context, 'phone', (route) => false);
+                        Navigator.pushNamedAndRemoveUntil(context, 'phone_signup', (route) => false);
                       },
                       child: Text(
                         'Edit Phone Number ?',

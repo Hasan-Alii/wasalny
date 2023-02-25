@@ -109,7 +109,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                       verificationFailed: (FirebaseAuthException e) {},
                       codeSent: (String verificationId, int? resendToken) {
                         PhoneOTPScreen.verify = verificationId;
-                        Navigator.pushNamed(context, "otp");
+                        Navigator.pushNamed(context, "otp_signup");
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
                     );
