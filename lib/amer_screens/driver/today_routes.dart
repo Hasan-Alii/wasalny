@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unibus/colors.dart';
-import 'package:unibus/today_routes_card.dart';
+import '../../shared/components/driver_app/today_routes_card.dart';
+import '../../shared/styles/colors.dart';
 
 class todayRoutes extends StatelessWidget {
 

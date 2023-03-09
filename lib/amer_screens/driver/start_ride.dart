@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:unibus/start_ride_card.dart';
-import 'package:unibus/today_routes_card.dart';
-import 'colors.dart';
+import '../../shared/components/driver_app/start_ride_card.dart';
+import '../../shared/styles/colors.dart';
+
 
 class startRide extends StatelessWidget {
 

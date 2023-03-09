@@ -329,6 +329,7 @@ class _DestinationPageWidgetState extends State<DestinationPageWidget> {
                 child: TextButton(
                   onPressed: () {
                     print('Confirm Button pressed');
+                    Navigator.pushNamedAndRemoveUntil(context, '/avail_buses', (route) => false);
                   },
                   child: Text(
                     'Confirm',

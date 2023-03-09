@@ -4,15 +4,15 @@ import '../../styles/colors.dart';
 
 class chooseBusCard extends StatelessWidget {
 
-  final int shh ;  // Start hour
-  final int smm;  // Start min
+  final String shh ;  // Start hour
+  final String smm;  // Start min
   final bool stime_am = true; // start time am,pm
-  final int ehh;  // End hour
-  final int emm;  // End min
+  final String ehh;  // End hour
+  final String emm;  // End min
   final bool etime_am = true; // End time am,pm
   final String s_point;
   final String e_point;
-  final int bus_no;
+  final String bus_no;
   final double cost;
 
 
@@ -46,7 +46,9 @@ class chooseBusCard extends StatelessWidget {
           ],
         ),
         child: MaterialButton(
-          onPressed: (){},
+          onPressed: (){
+            Navigator.pushNamedAndRemoveUntil(context, '/bookTrip', (route) => false);
+          },
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(

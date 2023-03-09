@@ -107,7 +107,7 @@ class _OTPLoginScreenState extends State<OTPLoginScreen> {
                       // Sign the user in (or link) with the credential
                       await auth.signInWithCredential(credential);
                       
-                      Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
                     }
                     catch(e){
                       print("Wrong otp");

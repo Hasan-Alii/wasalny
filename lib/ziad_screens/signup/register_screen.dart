@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:uber/ziad_screens/signup/phone.dart';
+import 'package:uber/ziad_screens/signup/verify_OTP.dart';
+import '../../functions/saver_user_data.dart';
+import '../../functions/signup_validations.dart';
 import '../../shared/styles/colors.dart';
 
 class SignUpScreen extends StatefulWidget {
+
+
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
@@ -10,10 +17,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _firstnameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  // final TextEditingController _mobileNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
 
   bool _passwordVisible = false;
   void _togglePasswordVisibility() {
@@ -22,10 +31,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
   }
 
-  //The dispose function is used to clean up any resources that were allocated by the widget, such as streams or animation controllers, to prevent memory leaks.
+  // The dispose function is used to clean up any resources that were allocated by the widget, such as streams or animation controllers, to prevent memory leaks.
   @override
   void dispose() {
-    _nameController.dispose();
+    _firstnameController.dispose();
+    _lastNameController.dispose();
     _emailController.dispose();
     // _mobileNumberController.dispose();
     _passwordController.dispose();
@@ -53,7 +63,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Expanded(
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               SizedBox(
@@ -76,21 +88,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: 61.0,
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextFormField(
-                  controller: _nameController,
-                    keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.person_outline),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.5),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: TextFormField(
+                      controller: _firstnameController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person_outline),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.5),
+                        ),
+                        labelText: "First Name",
+                      ),
                     ),
-                    labelText: "Name",
                   ),
-                ),
+                  SizedBox(width: 10),
+                  Flexible(
+                    child: TextFormField(
+                      controller: _lastNameController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person_outline),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.5),
+                        ),
+                        labelText: "Last Name",
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Padding(
+            ),
+
+            Padding(
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, bottom: 20.0),
                 child: TextFormField(
@@ -103,29 +136,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     labelText: "Email address",
                   ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your email address';
+                    }
+                    if (!isValidEmail(value)) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
                 ),
               ),
               // Padding(
-              //   padding: const EdgeInsets.only(
-              //       left: 20.0, right: 20.0, bottom: 20.0),
-              //   child: TextFormField(
-              //     keyboardType: TextInputType.phone,
-              //     controller: _mobileNumberController,
-              //     decoration: InputDecoration(
-              //       prefixIcon: Icon(Icons.phone),
-              //       border: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(4.5),
-              //       ),
-              //       labelText: "Mobile number",
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, bottom: 9.0),
                 child: TextFormField(
                   controller: _passwordController,
                   obscureText: !_passwordVisible,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter a password';
+                    } else if (value.length < 8) {
+                      return 'Password must be at least 8 characters';
+                    } else {
+                      return null;
+                    }
+                  },
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
@@ -153,8 +190,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: 363.0,
                   height: 57.0,
                   child: TextButton(
-                    onPressed: (){
-                      Navigator.pushNamed(context, "phone_signup");
+                    onPressed: () async {
+                      final isEmailUsed = await isEmailAddressAlreadyUsed(_emailController.text);
+                      if(isEmailUsed)
+                      {
+                        Fluttertoast.showToast(
+                            msg: "Email address already used. Please login or change your email address.",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      }
+                      else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PhoneOTPScreen(
+                                  firstName: _firstnameController.text,
+                                  lastName: _lastNameController.text,
+                                  password: _passwordController.text,
+                                  email: _emailController.text,
+                                ),
+                          ),
+                        );
+                      }
+
                     },
                     child: Text(
                       "Next",
@@ -178,7 +242,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 57.0,
                   child: FloatingActionButton.extended(
                     backgroundColor: loginWhite,
-                    onPressed: (){},
+                    onPressed: (){
+                    },
                     icon: Icon(FontAwesomeIcons.google, color: Color(0xFF10405A),),
                     label: Text(
                       "Sign up using Google",
@@ -194,13 +259,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 20.0, top: 5.0),
                 child: Center(
-                  child: Text(
-                    "Already member? Login",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xFF040C4D),
+                  child: TextButton(onPressed: ()
+                  {
+                    Navigator.popAndPushNamed(context, '/phoneLogin');
+                    },
+                    child: Text(
+                      "Already member? Login",
+
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xFF040C4D),
+                      ),
                     ),
+
                   ),
                 ),
               ),

@@ -28,7 +28,9 @@ class DailyBusCard extends StatelessWidget {
           ],
         ),
         child: MaterialButton(
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pushNamedAndRemoveUntil(context, '/avail_buses', (route) => false);
+            },
           child: Row(
             children: [
               Expanded(

@@ -57,14 +57,14 @@ class ChooseBusScreen extends StatelessWidget {
 
         body: ListView(
           children: [
-            chooseBusCard(shh: 55, smm: 55, ehh: 55, emm: 55, s_point: 'Nasr City', e_point: 'BUE', bus_no: 555, cost: 55),
-            chooseBusCard(shh: 55, smm: 55, ehh: 555, emm: 55, s_point: 'Nasr City', e_point: 'BUE', bus_no: 555, cost: 55),
-            chooseBusCard(shh: 55, smm: 55, ehh: 555, emm: 55, s_point: 'Nasr City', e_point: 'BUE', bus_no: 555, cost: 55),
-            chooseBusCard(shh: 55, smm: 55, ehh: 555, emm: 55, s_point: 'Nasr City', e_point: 'BUE', bus_no: 555, cost: 55),
-            chooseBusCard(shh: 55, smm: 55, ehh: 555, emm: 55, s_point: 'Nasr City', e_point: 'BUE', bus_no: 555, cost: 55),
-            chooseBusCard(shh: 55, smm: 55, ehh: 555, emm: 55, s_point: 'Nasr City', e_point: 'BUE', bus_no: 555, cost: 55),
-            chooseBusCard(shh: 55, smm: 55, ehh: 555, emm: 55, s_point: 'Nasr City', e_point: 'BUE', bus_no: 555, cost: 55),
-            chooseBusCard(shh: 55, smm: 55, ehh: 555, emm: 55, s_point: 'Nasr City', e_point: 'BUE', bus_no: 555, cost: 55),
+            chooseBusCard(shh: '08', smm: '00', ehh: '08', emm: '45', s_point: 'Nasr City', e_point: 'BUE', bus_no: '01', cost: 17),
+            chooseBusCard(shh: '08', smm: '00', ehh: '08', emm: '45', s_point: 'Nasr City', e_point: 'BUE', bus_no: '02', cost: 17),
+            chooseBusCard(shh: '08', smm: '00', ehh: '08', emm: '45', s_point: 'Nasr City', e_point: 'BUE', bus_no: '03', cost: 17),
+            chooseBusCard(shh: '08', smm: '00', ehh: '08', emm: '45', s_point: 'Nasr City', e_point: 'BUE', bus_no: '04', cost: 17),
+            chooseBusCard(shh: '08', smm: '00', ehh: '08', emm: '45', s_point: 'Nasr City', e_point: 'BUE', bus_no: '05', cost: 17),
+            chooseBusCard(shh: '08', smm: '00', ehh: '08', emm: '45', s_point: 'Nasr City', e_point: 'BUE', bus_no: '06', cost: 17),
+            chooseBusCard(shh: '08', smm: '00', ehh: '08', emm: '45', s_point: 'Nasr City', e_point: 'BUE', bus_no: '07', cost: 17),
+            chooseBusCard(shh: '08', smm: '00', ehh: '08', emm: '45', s_point: 'Nasr City', e_point: 'BUE', bus_no: '08', cost: 17),
           ],
         ),
       ),

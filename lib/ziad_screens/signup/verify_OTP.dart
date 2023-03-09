@@ -1,12 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:uber/ziad_screens/signup/phone.dart';
-
+import '../../functions/saver_user_data.dart';
 import '../../shared/styles/colors.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({Key? key}) : super(key: key);
+
+  const OTPScreen({Key? key, required this.password, required this.email, required this.phoneNumber, required this.firstName, required this.lastName,}) : super(key: key);
+
+  final String firstName;
+  final String lastName;
+  final String password;
+  final String email;
+  final String phoneNumber;
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -15,9 +23,14 @@ class OTPScreen extends StatefulWidget {
 class _OTPScreenState extends State<OTPScreen> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  final TextEditingController _otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
 
     final defaultPinTheme = PinTheme(
       width: 56,
@@ -99,20 +112,20 @@ class _OTPScreenState extends State<OTPScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    try
-                    {
+                    try {
                       // Create a PhoneAuthCredential with the code
                       PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: PhoneOTPScreen.verify, smsCode: otp);
 
                       // Sign the user in (or link) with the credential
-                      await auth.signInWithCredential(credential);
-                      
-                      Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
-                    }
-                    catch(e){
-                      print("Wrong otp");
-                    }
+                      final UserCredential userCredential = await auth.signInWithCredential(credential);
+                      final User user = userCredential.user!;
 
+                      await saveUserDataToFirestore(widget.email, widget.firstName,widget.lastName, widget.password,widget.phoneNumber);
+
+                      Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                    } catch(e) {
+                      print("Wrong OTP");
+                    }
                   },
                   child: Text(
                     'Verify phone number',
@@ -146,3 +159,5 @@ class _OTPScreenState extends State<OTPScreen> {
       ),
     );
 }}
+
+

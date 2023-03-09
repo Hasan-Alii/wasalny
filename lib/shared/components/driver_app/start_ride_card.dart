@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
+import '../../styles/colors.dart';
 
 class startRideCard extends StatelessWidget {
   final int thh;

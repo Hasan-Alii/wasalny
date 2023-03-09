@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unibus/colors.dart';
+import '../../styles/colors.dart';
 
 class todayRouteCard extends StatelessWidget {
 

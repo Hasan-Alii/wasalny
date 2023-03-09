@@ -1,10 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uber/shared/styles/colors.dart';
+import 'package:uber/ziad_screens/signup/verify_OTP.dart';
+
+import '../../functions/saver_user_data.dart';
 
 class PhoneOTPScreen extends StatefulWidget {
-  const PhoneOTPScreen({Key? key}) : super(key: key);
 
+  const PhoneOTPScreen({Key? key, required this.password, required this.email, required this.firstName, required this.lastName}) : super(key: key);
+
+  final String firstName;
+  final String lastName;
+  final String password;
+  final String email;
   static String verify = "";
 
   @override
@@ -13,6 +22,7 @@ class PhoneOTPScreen extends StatefulWidget {
 
 class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
 
+  final _formKey = GlobalKey<FormState>();
   TextEditingController countryCodeController = TextEditingController();
   var phoneNumber ="";
 
@@ -24,7 +34,6 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(left: 25.0,right: 25.0),
@@ -103,16 +112,43 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                 child: ElevatedButton(
                   onPressed: ()
                   async {
-                    await FirebaseAuth.instance.verifyPhoneNumber(
-                      phoneNumber: '${countryCodeController.text+phoneNumber}',
-                      verificationCompleted: (PhoneAuthCredential credential) {},
-                      verificationFailed: (FirebaseAuthException e) {},
-                      codeSent: (String verificationId, int? resendToken) {
-                        PhoneOTPScreen.verify = verificationId;
-                        Navigator.pushNamed(context, "otp_signup");
-                      },
-                      codeAutoRetrievalTimeout: (String verificationId) {},
-                    );
+                    final isPhoneNumberUsed = await isPhoneNumberAlreadyUsed(phoneNumber);
+                     if (isPhoneNumberUsed) {
+                       Fluttertoast.showToast(
+                           msg: "Phone number already used. Please login or change your phone number.",
+                           toastLength: Toast.LENGTH_LONG,
+                           gravity: ToastGravity.BOTTOM,
+                           timeInSecForIosWeb: 1,
+                           backgroundColor: Colors.red,
+                           textColor: Colors.white,
+                           fontSize: 16.0
+                       );
+                     }
+                     else{
+                      await FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: '${countryCodeController.text + phoneNumber}',
+                        verificationCompleted: (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException e) {},
+                        codeSent: (String verificationId, int? resendToken) {
+                          PhoneOTPScreen.verify = verificationId;
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) => OTPScreen(
+                            email : widget.email,
+                            firstName: widget.firstName,
+                            lastName: widget.lastName,
+                            password: widget.password,
+                            phoneNumber: phoneNumber,
+                          ),
+                          ),
+
+                          );
+                          },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                      );
+                    }
                   },
                   child: Text(
                     'Send code',

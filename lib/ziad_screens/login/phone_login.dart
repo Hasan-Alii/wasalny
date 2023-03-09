@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uber/shared/styles/colors.dart';
 
 class PhoneOTPLoginScreen extends StatefulWidget {
@@ -101,18 +103,40 @@ class _PhoneOTPLoginScreenState extends State<PhoneOTPLoginScreen> {
                 height: 45.0,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: ()
-                  async {
-                    await FirebaseAuth.instance.verifyPhoneNumber(
-                      phoneNumber: '${countryCodeController.text+phoneNumber}',
-                      verificationCompleted: (PhoneAuthCredential credential) {},
-                      verificationFailed: (FirebaseAuthException e) {},
-                      codeSent: (String verificationId, int? resendToken) {
-                        PhoneOTPLoginScreen.verify = verificationId;
-                        Navigator.pushNamed(context, "otp_login");
-                      },
-                      codeAutoRetrievalTimeout: (String verificationId) {},
-                    );
+                  onPressed: () async {
+                    String phone = '${countryCodeController.text + phoneNumber}';
+
+                    // Make a query to Firestore to check if the phone number exists
+                    var snapshot = await FirebaseFirestore.instance
+                        .collection('users')
+                        .where('phone_number', isEqualTo: phoneNumber)
+                        .get();
+
+                    if (snapshot.docs.isNotEmpty) {
+                      // Phone number already exists in Firestore, send OTP
+                      await FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: phone,
+                        verificationCompleted: (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException e) {},
+                        codeSent: (String verificationId, int? resendToken) {
+                          PhoneOTPLoginScreen.verify = verificationId;
+                          Navigator.pushNamed(context, "/otpLogin");
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                      );
+                    } else {
+                      // Phone number doesn't exist in Firestore, navigate to register page
+                      Fluttertoast.showToast(
+                          msg: "Phone number is not registered.",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 2,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                      Navigator.pushNamed(context, "/register");
+                    }
                   },
                   child: Text(
                     'Send code',

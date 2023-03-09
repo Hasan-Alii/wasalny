@@ -13,7 +13,6 @@ import 'package:uber/ziad_screens/signup/register_screen.dart';
 import 'package:uber/ziad_screens/review.dart';
 import 'package:uber/ziad_screens/signup/verify_OTP.dart';
 import 'package:uber/welcome_screen.dart';
-
 import 'amer_screens/student/choose_bus.dart';
 import 'hussam_screens/payments_methods_1.dart';
 
@@ -25,11 +24,14 @@ void main() async {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DailyBusScreen(),
+      home: SignUpScreen(),
+
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/':
-            return MaterialPageRoute(builder: (context) => HomePageWidget());
+            return MaterialPageRoute(builder: (context) => NavBarWidget());
+          case '/home':
+            return MaterialPageRoute(builder: (context) => NavBarWidget());
           case '/destination':
             return MaterialPageRoute(builder: (context) => DestinationPageWidget());
           case '/welcome':
@@ -41,9 +43,9 @@ void main() async {
           case '/otpLogin':
             return MaterialPageRoute(builder: (context) => OTPLoginScreen());
           case '/phoneSignup':
-            return MaterialPageRoute(builder: (context) => PhoneOTPScreen());
+            return MaterialPageRoute(builder: (context) => PhoneOTPScreen(firstName: '',lastName: '', password: '', email: '',));
           case '/otpSignup':
-            return MaterialPageRoute(builder: (context) => OTPScreen());
+            return MaterialPageRoute(builder: (context) => OTPScreen(firstName: '',lastName: '', password: '', email: '', phoneNumber: '',));
           case '/register':
             return MaterialPageRoute(builder: (context) => SignUpScreen());
           case '/review':
@@ -56,8 +58,10 @@ void main() async {
             return MaterialPageRoute(builder: (context) => PaymentMethods2Widget());
           case '/avail_buses':
             return MaterialPageRoute(builder: (context) => ChooseBusScreen());
+            case '/daily_buses':
+            return MaterialPageRoute(builder: (context) => DailyBusScreen());
           default:
-            return MaterialPageRoute(builder: (context) => HomePageWidget());
+            return MaterialPageRoute(builder: (context) => NavBarWidget());
         }
       },
     ));

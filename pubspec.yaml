@@ -43,8 +43,11 @@ dependencies:
   geolocator: ^9.0.2
   font_awesome_flutter: ^10.4.0
   flutter_rating_bar: ^4.0.0
-  pinput: ^2.2.21
+  pinput: ^2.2.31
   floating_bottom_navigation_bar: ^1.5.2
+  cloud_firestore: ^4.4.3
+  fluttertoast: ^8.0.8
+  crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:
