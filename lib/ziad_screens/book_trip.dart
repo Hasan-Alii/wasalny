@@ -21,7 +21,7 @@ class _BookTripScreenState extends State<BookTripScreen>
 
   void _incrementSeatCount() {
     setState(() {
-      _seatCount = (_seatCount < 6) ? _seatCount + 1 : _seatCount;
+      _seatCount = (_seatCount < 2) ? _seatCount + 1 : _seatCount;
       _seatController.text = _seatCount.toString();
     });
   }
@@ -205,7 +205,7 @@ class _BookTripScreenState extends State<BookTripScreen>
                                       onPressed: _incrementSeatCount,
                                       icon: Icon(
                                         FontAwesomeIcons.plus,
-                                        color: _seatCount < 6 ? Color(0xFFB0B0B0) : Colors.red,
+                                        color: _seatCount < 2 ? Color(0xFFB0B0B0) : Colors.red,
                                       ),
                                     ),
                                   ],

@@ -24,7 +24,7 @@ void main() async {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SignUpScreen(),
+        home: DailyBusScreen(),
 
       onGenerateRoute: (settings) {
         switch (settings.name) {
