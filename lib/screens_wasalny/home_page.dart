@@ -52,78 +52,77 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                 child: Container(
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF10462E),
-                        borderRadius: BorderRadius.circular(10),
-                        shape: BoxShape.rectangle,
-                      ),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(18, 18, 18, 18),
-                            child: Row(
+                  width: double.infinity,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF10462E),
+                    borderRadius: BorderRadius.circular(10),
+                    shape: BoxShape.rectangle,
+                  ),
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(18, 18, 18, 18),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Column(
                               mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          EdgeInsetsDirectional.fromSTEB(0, 16, 0, 16),
-                                      child: Text(
-                                        'Safe and Comfortable',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ), //safe & comfortable
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 10, 10, 10),
-                                      child: Text(
-                                        'Enjoy your ride ➤',
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 14,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ), //enjoy your ride
-                                  ],
-                                ), //text
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(9, 5, 5, 5),
-                                  child: Image.asset(
-                                    'assets/images/MainPageBus1.png',
-                                    width: 110,
-                                    height: 100,
-                                    fit: BoxFit.contain,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 16, 0, 16),
+                                  child: Text(
+                                    'Safe and Comfortable',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ), //green bus image
+                                ), //safe & comfortable
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 10, 10, 10),
+                                  child: Text(
+                                    'Enjoy your ride ➤',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ), //enjoy your ride
                               ],
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: TextButton(
-                              style: ButtonStyle(
-
+                            ), //text
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(9, 5, 5, 5),
+                              child: Image.asset(
+                                'assets/images/MainPageBus1.png',
+                                width: 110,
+                                height: 100,
+                                fit: BoxFit.contain,
                               ),
-                              onPressed: () {
-                                print('green Button pressed');
-                              },
-                              child: Text(''),
-                            ),
-                          ),
-                        ],
+                            ), //green bus image
+                          ],
+                        ),
                       ),
-                    ),
+                      Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: TextButton(
+                          style: ButtonStyle(),
+                          onPressed: () {
+                            print('green Button pressed');
+                          },
+                          child: Text(''),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ), //green box
 
               Padding(
@@ -144,7 +143,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,8 +159,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ), //Latest Ride
 
                                   Padding(
-                                    padding:
-                                        EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 5),
                                     child: Text(
                                       'El-Hegaz Square',
                                       style: TextStyle(
@@ -172,20 +172,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ), //EL Hegaz square
 
                                   Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          5, 5, 5, 0),
-                                      child: Text(
-                                        DateFormat('dd MMM . h:mm a')
-                                            .format(DateTime.now()),
-                                        style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 14,
-                                            color: Colors.white54),
-                                      )), //date & time
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 5, 5, 0),
+                                    child: Text(
+                                      DateFormat('dd MMM . h:mm a')
+                                          .format(DateTime.now()),
+                                      style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 14,
+                                          color: Colors.white54),
+                                    ),
+                                  ), //date & time
 
                                   Padding(
-                                    padding:
-                                        EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 5, 5, 5),
                                     child: Text(
                                       '20 LE',
                                       style: TextStyle(
@@ -201,11 +202,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ), //latest ride description
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                                 child: Image.asset(
                                   'assets/images/MainPageBus2.png',
-                                  width: MediaQuery.of(context).size.width * 0.2,
-                                  height: MediaQuery.of(context).size.height * 0.2,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -217,9 +221,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         width: double.infinity,
                         height: double.infinity,
                         child: TextButton(
-                          style: ButtonStyle(
-
-                          ),
+                          style: ButtonStyle(),
                           onPressed: () {
                             print('1st blue Button pressed');
                           },
@@ -258,9 +260,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         width: double.infinity,
                         height: double.infinity,
                         child: TextButton(
-                          style: ButtonStyle(
-
-                          ),
+                          style: ButtonStyle(),
                           onPressed: () {
                             print('2nd blue Button pressed');
                           },
@@ -282,7 +282,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                         child: Container(
@@ -306,8 +305,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 8, 8, 8),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
                                       child: Image.asset(
@@ -324,9 +323,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 8, 0, 8),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'El-Hegaz Square',
@@ -350,8 +350,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                                   ), //text
                                   Padding(
-                                    padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 8, 0),
                                     child: Icon(
                                       Icons.chevron_right,
                                       color: Color(0xFF040C4D),
@@ -420,8 +420,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                                   ), //saved palces
                                   Padding(
-                                    padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 8, 0),
                                     child: Icon(
                                       Icons.chevron_right,
                                       color: Color(0xFF040C4D),
@@ -455,8 +455,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 }
-
-
 
 //
 // Padding(
@@ -514,9 +512,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 // ),
 // ),
 // ),
-
-
-
 
 // Padding(
 //   padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
