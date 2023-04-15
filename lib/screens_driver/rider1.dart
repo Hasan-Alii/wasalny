@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasalny/screens_driver/maher%20screen.dart';
 class Rider1 extends StatefulWidget {
 
   @override
@@ -12,10 +13,8 @@ class _Rider1State extends State<Rider1> {
     return Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          backgroundColor: Colors.black26,
-          title: Center(
-            child: Text('دخول الركاب'),
-          ),
+          backgroundColor: Colors.green,
+          title: Center(child: Text('دخول الركاب')),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -109,10 +108,7 @@ class _Rider1State extends State<Rider1> {
                                           decoration: BoxDecoration(
                                             color: Colors.red,
                                           ),
-                                          child: MaterialButton(onPressed:()
-                                          {
-
-                                          },
+                                          child: MaterialButton(onPressed:() {},
                                             child: Center(child: Text('الغاء'
                                               ,style: TextStyle(color: Colors.white),),),
                                           ),
@@ -179,7 +175,13 @@ class _Rider1State extends State<Rider1> {
                                           decoration: BoxDecoration(
                                             color: Colors.green,
                                           ),
-                                          child: MaterialButton(onPressed:() {},
+                                          child: MaterialButton(onPressed:() {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => MaherScreen()),
+                                            );
+                                          },
                                             child: Center(child: Text('تأكيد'
                                               ,style: TextStyle(color: Colors.white),),),
                                           ),
@@ -630,10 +632,7 @@ class _Rider1State extends State<Rider1> {
                                           decoration: BoxDecoration(
                                             color: Colors.red,
                                           ),
-                                          child: MaterialButton(onPressed:()
-                                          {
-
-                                          },
+                                          child: MaterialButton(onPressed:() {},
                                             child: Center(child: Text('الغاء'
                                               ,style: TextStyle(color: Colors.white),),),
                                           ),
