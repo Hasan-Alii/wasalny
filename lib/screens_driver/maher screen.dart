@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wasalny/screens_driver/logOut.dart';
+import 'package:wasalny/screens_driver/map_page.dart';
 
 class MaherScreen extends StatefulWidget {
   const MaherScreen({Key? key}) : super(key: key);
@@ -117,7 +118,10 @@ class _MaherScreenState extends State<MaherScreen> {
                           child: TextButton(
                             child: Text(''),
                             onPressed: () {
-                              print('Saved Places Button pressed');
+                              Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder: (context) => MapPage()),
+                              );
                             },
                           ),
                         ),
