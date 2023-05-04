@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wasalny/screens_driver/driver_home_page.dart';
@@ -14,7 +15,9 @@ import 'package:wasalny/screens_wasalny/payment_page_2.dart';
 import 'package:wasalny/screens_wasalny/settings_page.dart';
 
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

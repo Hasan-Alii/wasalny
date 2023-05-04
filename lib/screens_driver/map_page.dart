@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:location/location.dart';
-import 'package:wasalny/screens_driver/driver_home_page.dart';
+import 'driver_home_page.dart';
 
 const double CAMERA_ZOOM = 13;
 const double CAMERA_TILT = 0;
@@ -19,11 +19,9 @@ class MapPage extends StatefulWidget {
   State<MapPage> createState() => _MapPageState();
 }
 
-
-
 class _MapPageState extends State<MapPage> {
-
   Completer<GoogleMapController> _controller = Completer();
+
   //on below line we have set the camera position
   static const CameraPosition _kGoogle = CameraPosition(
     target: LatLng(30.06930, 31.34411),
@@ -46,38 +44,51 @@ class _MapPageState extends State<MapPage> {
     LatLng(30.11744901160826, 31.605058565127607), //BUE
     LatLng(30.11917515627577, 31.60457576748187), //SHA
   ];
-  int counter =0; //عشان حازم ميزعلش
+  int counter = 0; //عشان حازم ميزعلش
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
     // declared for loop for various locations
-    for(int i=0; i<latLen.length; i++){
+    for (int i = 0; i < latLen.length; i++) {
       counter++;
       _markers.add(
-        // added markers
+          // added markers
           Marker(
-            markerId: MarkerId(i.toString()),
-            position: latLen[i],
-            infoWindow: InfoWindow(
-                title: 'HOTEL',
-                snippet: '5 Star Hotel',
-                onTap: (){
-                  showDialog(context: context, builder: (context)
-                  {
-                    return AlertDialog(title: Text('Trip info'),
+        markerId: MarkerId(i.toString()),
+        position: latLen[i],
+        infoWindow: InfoWindow(
+            title: 'HOTEL',
+            snippet: '5 Star Hotel',
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Trip info'),
                       content: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Driver name: Hazem El Tiaaaaaar', style: style1,),
-                          SizedBox(height: 20,),
-                          Text('Time to station: 08:00' , style: style1),
-                          SizedBox(height: 20,),
+                          Text(
+                            'Driver name: Hazem El Tiaaaaaar',
+                            style: style1,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text('Time to station: 08:00', style: style1),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Text('Time to destination: 08:00', style: style1),
-                          SizedBox(height: 20,),
-                          Text('Fare: ${(counter-i)*2} EGP', style: style1),
-                          SizedBox(height: 20,),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text('Fare: ${(counter - i) * 2} EGP', style: style1),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Row(
                             children: [
                               Expanded(
@@ -87,40 +98,60 @@ class _MapPageState extends State<MapPage> {
                                   decoration: BoxDecoration(
                                     color: Colors.green,
                                   ),
-                                  child: MaterialButton(onPressed:() {
-                                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                    showDialog(context: context, builder: (context)
-                                    {
-                                      return AlertDialog(title: Text('REQUEST CONFIRMED SUCCEFULLY :( !!!!!!'),
-                                        content: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                height: 50,
-                                                width: double.infinity,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.green,
-                                                ),
-                                                child: MaterialButton(onPressed:()
-                                                {
-                                                  Navigator.of(context).push(
-                                                      MaterialPageRoute(builder: (context) => DriverHomePage()));
-                                                },
-                                                  child: Center(child: Text('OK'
-                                                    ,style: TextStyle(color: Colors.white),),),
-                                                ),
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                  'REQUEST CONFIRMED SUCCEFULLY :( !!!!!!'),
+                                              content: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      height: 50,
+                                                      width: double.infinity,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.green,
+                                                      ),
+                                                      child: MaterialButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context).push(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          DriverHomePage()));
+                                                        },
+                                                        child: Center(
+                                                          child: Text(
+                                                            'OK',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ],),
-                                      );
-                                    });
-                                  },
-                                    child: Center(child: Text('Confirm'
-                                      ,style: TextStyle(color: Colors.white),),),
+                                            );
+                                          });
+                                    },
+                                    child: Center(
+                                      child: Text(
+                                        'Confirm',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 20,),
+                              SizedBox(
+                                width: 20,
+                              ),
                               Expanded(
                                 child: Container(
                                   height: 50,
@@ -128,45 +159,43 @@ class _MapPageState extends State<MapPage> {
                                   decoration: BoxDecoration(
                                     color: Colors.red,
                                   ),
-                                  child: MaterialButton(onPressed:()
-                                  {
-                                  },
-                                    child: Center(child: Text('Cancel'
-                                      ,style: TextStyle(color: Colors.white),),),
+                                  child: MaterialButton(
+                                    onPressed: () {},
+                                    child: Center(
+                                      child: Text(
+                                        'Cancel',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ],),
+                            ],
+                          ),
                         ],
                       ),
                     );
-                  });              }
-            ),
-            icon: BitmapDescriptor.defaultMarker,
-
-          )
-      );
-      setState(() {
-
-      });
-      _polyline.add(
-          Polyline(
-            polylineId: PolylineId('1'),
-            points: latLen,
-            color: Colors.green,
-          )
-      );
+                  });
+            }),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+      setState(() {});
+      _polyline.add(Polyline(
+        polylineId: PolylineId('1'),
+        points: latLen,
+        color: Colors.green,
+      ));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Color(0xFF0F9D58),
-      //   // title of app
-      //   title: Text("Trip Stations"),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF0F9D58),
+        // title of app
+        title: Text("Trip Stations"),
+      ),
       body: Container(
         child: SafeArea(
           child: GoogleMap(
@@ -184,7 +213,7 @@ class _MapPageState extends State<MapPage> {
             // on below line we have added polylines
             polylines: _polyline,
             // displayed google map
-            onMapCreated: (GoogleMapController controller){
+            onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
           ),
@@ -194,6 +223,4 @@ class _MapPageState extends State<MapPage> {
   }
 }
 
-
-
-TextStyle style1 = TextStyle(fontSize:20, color: Colors.black);
+TextStyle style1 = TextStyle(fontSize: 20, color: Colors.black);

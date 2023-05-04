@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wasalny/screens_driver/maher%20screen.dart';
+import 'maher_screen.dart';
 class Rider1 extends StatefulWidget {
 
   @override
@@ -143,7 +143,7 @@ class _Rider1State extends State<Rider1> {
                           child: Container(
                             height: 50,
                             width: double.infinity,
-                            color: Colors.green,
+                            color: Colors.blue,
                             child: MaterialButton(onPressed:()
                             {
                               showDialog(context: context, builder: (context)
@@ -158,10 +158,7 @@ class _Rider1State extends State<Rider1> {
                                           decoration: BoxDecoration(
                                             color: Colors.red,
                                           ),
-                                          child: MaterialButton(onPressed:()
-                                          {
-
-                                          },
+                                          child: MaterialButton(onPressed:() {},
                                             child: Center(child: Text('الغاء'
                                               ,style: TextStyle(color: Colors.white),),),
                                           ),
@@ -173,7 +170,7 @@ class _Rider1State extends State<Rider1> {
                                           height: 50,
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                            color: Colors.green,
+                                            color: Colors.blue,
                                           ),
                                           child: MaterialButton(onPressed:() {
                                             Navigator.push(
