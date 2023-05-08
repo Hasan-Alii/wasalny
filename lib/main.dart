@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wasalny/login/login_page.dart';
 import 'package:wasalny/screens_driver/driver_home_page.dart';
 import 'package:wasalny/screens_driver/logOut.dart';
 import 'package:wasalny/screens_driver/maher%20screen.dart';
@@ -13,6 +14,8 @@ import 'package:wasalny/screens_wasalny/destination_page.dart';
 import 'package:wasalny/screens_wasalny/payment_page_1.dart';
 import 'package:wasalny/screens_wasalny/payment_page_2.dart';
 import 'package:wasalny/screens_wasalny/settings_page.dart';
+import 'package:wasalny/login/settings_page.dart';
+
 
 
 Future<void> main() async {
@@ -33,7 +36,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DriverHomePage(),
+
+      home: LoginPage(),
     );
   }
 }
