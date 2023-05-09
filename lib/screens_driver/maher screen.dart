@@ -23,7 +23,7 @@ class _MaherScreenState extends State<MaherScreen> {
         backgroundColor: Colors.black,
         title: Center(
           child: Text(
-            'تدريب',
+            'تدريب اسم اخر محطة',
             style: style1,
           ),
         ),

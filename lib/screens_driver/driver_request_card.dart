@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:wasalny/screens_driver/bus_stations.dart';
@@ -14,6 +15,8 @@ class DriverRequestCard extends StatelessWidget {
   final String endPoint;
   final List<LatLng> latLngList;
   final List<String> stationNamesList;
+  List<dynamic> ticketsList;
+
 
   DriverRequestCard({
     required this.tripEnd,
@@ -22,6 +25,7 @@ class DriverRequestCard extends StatelessWidget {
     required this.endPoint,
     required this.latLngList,
     required this.stationNamesList,
+    required this.ticketsList,
   });
 
   @override
@@ -140,7 +144,7 @@ class DriverRequestCard extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => BusStations(stationNames: stationNamesList, latLng: latLngList,),
+                                    builder: (context) => BusStations(tickets: ticketsList ,stationNames: stationNamesList, latLng: latLngList,),
                                   ),
                                 );
                               },

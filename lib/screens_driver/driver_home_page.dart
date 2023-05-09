@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'rider1.dart';
@@ -7,7 +8,6 @@ import 'package:intl/intl.dart';
 import 'day_of_month.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'driver_request_card.dart';
-import 'driver_request.dart';
 
 class DriverHomePage extends StatefulWidget {
   const DriverHomePage({super.key});
@@ -436,7 +436,20 @@ class _DriverHomePageState extends State<DriverHomePage> {
                   }
                   if (tripsSnapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return Container(
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              child: CircularProgressIndicator(),
+                              height: 50.0,
+                              width: 50.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                   }
                   if (tripsSnapshot.data == null ||
                       tripsSnapshot.data!.docs.isEmpty) {
@@ -453,6 +466,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                       String tripStart = document['tripTime'];
                       String tripEnd = document['tripEnd'];
                       DocumentReference busRef = document['bus'];
+                      var tickets = document['tickets'];
 
                       // Retrieve the route document
                       DocumentReference routeRef = document['routeNo'];
@@ -465,7 +479,20 @@ class _DriverHomePageState extends State<DriverHomePage> {
                           }
                           if (routeSnapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
+                            return Container(
+                              child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      child: CircularProgressIndicator(),
+                                      height: 50.0,
+                                      width: 50.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
                           }
                           List<DocumentReference> stationRefs = routeSnapshot
                               .data!['stationRefs']
@@ -481,7 +508,20 @@ class _DriverHomePageState extends State<DriverHomePage> {
                               }
                               if (busSnapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
+                                return Container(
+                                  child: Center(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          child: CircularProgressIndicator(),
+                                          height: 50.0,
+                                          width: 50.0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
                               }
                               String busNo = busSnapshot.data!['busID'];
 
@@ -498,7 +538,20 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                   }
                                   if (stationSnapshots.connectionState ==
                                       ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
+                                    return Container(
+                                      child: Center(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              child: CircularProgressIndicator(),
+                                              height: 50.0,
+                                              width: 50.0,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
                                   }
 
                                   // Extract station names from station documents
@@ -522,11 +575,13 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                           .toList();
 
                                   return DriverRequestCard(
+                                    ticketsList: tickets,
                                     stationNamesList: stationNames,
                                     latLngList: latLngList,
                                     tripStart: tripStart,
                                     tripEnd: tripEnd,
-                                    startPoint: stationNames.isNotEmpty
+                                    startPoint:
+                                    stationNames.isNotEmpty
                                         ? stationNames.first
                                         : 'Unknown',
                                     endPoint: stationNames.isNotEmpty
