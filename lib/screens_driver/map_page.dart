@@ -5,15 +5,21 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:location/location.dart';
 import 'driver_home_page.dart';
+import 'polyline_handler.dart';
 
 const double CAMERA_ZOOM = 13;
 const double CAMERA_TILT = 0;
 const double CAMERA_BEARING = 30;
-const LatLng SOURCE_LOCATION = LatLng(42.7477863, -71.1699932);
-const LatLng DEST_LOCATION = LatLng(42.6871386, -71.2143403);
+const LatLng SOURCE_LOCATION =  LatLng(30.067503427090212, 31.324826613070474);
+const LatLng DEST_LOCATION = LatLng(30.11917515627577, 31.60457576748187)
+
+
+;
 
 class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+  // final List<LatLng> latLngList;
+  // final List<String> stationNamesList;
+  // const MapPage({required this.latLngList, required this.stationNamesList});
 
   @override
   State<MapPage> createState() => _MapPageState();
@@ -183,7 +189,8 @@ class _MapPageState extends State<MapPage> {
       _polyline.add(Polyline(
         polylineId: PolylineId('1'),
         points: latLen,
-        color: Colors.green,
+        color: Colors.black,
+        width: 4
       ));
     }
   }

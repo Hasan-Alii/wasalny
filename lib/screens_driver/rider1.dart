@@ -8,6 +8,7 @@ class Rider1 extends StatelessWidget {
   final List<LatLng> latLngList;
   final List<String> stationNamesList;
   List<dynamic> ticketsList;
+  List<String> names = ['Ahmed Mohamed', 'ziad amer', 'Ziad Alaa', 'ziad amer', 'Ziad Alaa', 'Ahmed Mohamed','Ahmed Mohamed',];
 
   Rider1({
     required this.latLngList,
@@ -35,7 +36,8 @@ class Rider1 extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final item = ticketsList[index];
                       var name = '${item['user_id']}';
-                      var code = name.substring(name.length - 3);
+                      var code = name.substring(name.length - 2);
+                      var name1 = names[index];
 
                       // FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                       //   future: FirebaseFirestore.instance
@@ -84,7 +86,7 @@ class Rider1 extends StatelessWidget {
                                           const EdgeInsets.only(
                                               bottom: 22),
                                           child: Text(
-                                            '${name}',
+                                            '${name1}',
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 14,
@@ -319,7 +321,7 @@ class Rider1 extends StatelessWidget {
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder: (context) =>
-                                                                      MaherScreen()),
+                                                                      MaherScreen(latLngcor: latLngList , stations: stationNamesList)),
                                                             );
                                                           },
                                                           child:

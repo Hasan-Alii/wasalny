@@ -23,6 +23,8 @@ dependencies:
   provider: ^6.0.5
   font_awesome_flutter: ^10.4.0
   awesome_dialog: ^3.0.2
+  firebase_auth: ^4.5.0
+  fluttertoast: ^8.2.1
 
 
 
@@ -48,7 +50,7 @@ flutter:
     - assets/images/WhiteCreditCard.png
     - assets/images/WelcomePageBus.png
     - assets/images/OrangeLeatherWallet.png
-    - assets/images/14_No Search Results.png
+    - assets/images/mobile-app.png
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware
@@ -66,9 +68,8 @@ flutter:
         fonts:
           - asset: assets/fonts/Poppins-Regular.ttf
           - asset: assets/fonts/Poppins-Bold.ttf
-            style: Bold
-          - asset: assets/fonts/Poppins-SemiBold.ttf
-            style: Bold
+            weight: 700
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

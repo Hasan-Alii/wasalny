@@ -13,6 +13,8 @@ import 'package:wasalny/screens_wasalny/destination_page.dart';
 import 'package:wasalny/screens_wasalny/payment_page_1.dart';
 import 'package:wasalny/screens_wasalny/payment_page_2.dart';
 import 'package:wasalny/screens_wasalny/settings_page.dart';
+import 'package:wasalny/login/login_page.dart';
+
 
 
 Future<void> main() async {
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DriverHomePage(),
+      home: LoginPage(),
     );
   }
 }

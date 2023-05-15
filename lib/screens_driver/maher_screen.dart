@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'logOut.dart';
 import 'map_page.dart';
 
-class MaherScreen extends StatefulWidget {
-  const MaherScreen({Key? key}) : super(key: key);
+class MaherScreen extends StatelessWidget {
+  final List<LatLng> latLngcor;
+  final List<String> stations;
 
-  @override
-  State<MaherScreen> createState() => _MaherScreenState();
-}
+  MaherScreen({
+    required this.latLngcor,
+    required this.stations,
+});
 
-class _MaherScreenState extends State<MaherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,10 +120,11 @@ class _MaherScreenState extends State<MaherScreen> {
                           child: TextButton(
                             child: Text(''),
                             onPressed: () {
-                              Navigator.push(context,
-                                MaterialPageRoute(
-                                    builder: (context) => MapPage()),
-                              );
+                              Navigator
+                                  .push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MapPage(),
+                                  ));
                             },
                           ),
                         ),
