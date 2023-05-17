@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'driver_home_page.dart';
 import 'rider1.dart';
+import 'dart:async';
+
 
 class BusStations extends StatelessWidget {
   final List<LatLng> latLng;
@@ -25,10 +27,7 @@ class BusStations extends StatelessWidget {
         leading: BackButton(
           color: Colors.white,
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DriverHomePage()),
-            );
+            Navigator.pop(context);
           },
         ),
         title: const Text('مسار الرحلة'),

@@ -25,6 +25,8 @@ dependencies:
   awesome_dialog: ^3.0.2
   firebase_auth: ^4.5.0
   fluttertoast: ^8.2.1
+  flutter_svg: ^0.17.3+1
+  url_launcher: ^6.1.11
 
 
 
@@ -63,12 +65,12 @@ flutter:
     # "family" key with the font family name, and a "fonts" key with a
     # list giving the asset and other descriptors for the font. For
     # example:
-    - fonts:
-      - family: Poppins
-        fonts:
-          - asset: assets/fonts/Poppins-Regular.ttf
-          - asset: assets/fonts/Poppins-Bold.ttf
-            weight: 700
+#    - fonts:
+#      - family: Poppins
+#        fonts:
+#          - asset: assets/fonts/Poppins-Regular.ttf
+#          - asset: assets/fonts/Poppins-Bold.ttf
+#            weight: 700
 
   #   - family: Trajan Pro
   #     fonts:

@@ -61,7 +61,7 @@ class DriverRequestCard extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
-                              '$tripStart',
+                              '${tripStart}',
                               // DateFormat('hh:mm aa')
                               //     .format(DateTime.now()),
                               style: const TextStyle(
