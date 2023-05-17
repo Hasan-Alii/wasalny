@@ -8,9 +8,14 @@ import 'package:intl/intl.dart';
 import 'day_of_month.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'driver_request_card.dart';
+import 'package:wasalny/login/login_page.dart';
+
 
 class DriverHomePage extends StatefulWidget {
-  const DriverHomePage({super.key});
+  final String driveremail;
+  DriverHomePage({
+    required this.driveremail,
+});
 
   @override
   State<DriverHomePage> createState() => _DriverHomePageState();
@@ -415,9 +420,11 @@ class _DriverHomePageState extends State<DriverHomePage> {
               //     }
               // ),
 
+
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('trip')
+                    // .where('assignedDriver', isEqualTo: widget.driveremail)
                     // .where('tripTime' as DateTime, isEqualTo: DateTime.now().year)
                     .snapshots(),
                 builder: (BuildContext context,

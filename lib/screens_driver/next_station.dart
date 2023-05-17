@@ -1,16 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'logOut.dart';
 import 'map_page.dart';
 
-class MaherScreen extends StatelessWidget {
-  final List<LatLng> latLngcor;
-  final List<String> stations;
+class NextStation extends StatefulWidget {
+  final List<LatLng> latLngList;
+  final List<String> stationsList;
+  List<dynamic> ticketsList;
 
-  MaherScreen({
-    required this.latLngcor,
-    required this.stations,
-});
+
+  NextStation({
+    required this.ticketsList,
+    required this.latLngList,
+    required this.stationsList,
+  });
+
+  @override
+  State<NextStation> createState() => _NextStationState();
+}
+
+class _NextStationState extends State<NextStation> {
+  List<LatLng> latlngss = [];
+  List<LatLng> newlatLngcor = [];
+  List<String> newstations = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    for(int i=0; i<widget.latLngList.length; i++){
+      latlngss.add(widget.latLngList[i]);
+    }
+
+    for(int i=1; i<widget.latLngList.length; i++){
+      newlatLngcor.add(widget.latLngList[i]);
+      newstations.add(widget.stationsList[i]);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +53,7 @@ class MaherScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         title: Center(
           child: Text(
-            'تدريب',
+            'now in: ${newstations.first}',
             style: style1,
           ),
         ),
@@ -41,14 +69,40 @@ class MaherScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'أكاديمية الشروق',
+                    Text('${newstations.first}',
                       style: style,
                     ),
                     Row(
                       children: [
                         Text(
-                          'محطة',
+                          'المحطة الحالية:',
+                          style: style,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Icon(
+                          Icons.north_east,
+                          color: Colors.blueGrey,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${newstations[1]}',
+                      style: style,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'المحطة التالية:',
                           style: style,
                         ),
                         SizedBox(
@@ -120,11 +174,27 @@ class MaherScreen extends StatelessWidget {
                           child: TextButton(
                             child: Text(''),
                             onPressed: () {
-                              Navigator
-                                  .push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => MapPage(),
-                                  ));
+                              if(newlatLngcor.length>3){
+                                launchURL(String url) async {
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                }
+                                String url = 'https://www.google.com/maps/dir/?api=1&origin=${newlatLngcor.first.latitude},${newlatLngcor.first.longitude}&destination=${newlatLngcor[1].latitude},${newlatLngcor[1].longitude}&travelmode=driving&dir_action=navigate';
+                                launchURL(url);
+                              }else{
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => LogoutScreen(),));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content:
+                                    Text('هذه اخر محظة'),
+                                    duration: Duration(seconds: 5),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
                             },
                           ),
                         ),
@@ -184,7 +254,10 @@ class MaherScreen extends StatelessWidget {
                           child: TextButton(
                             child: Text(''),
                             onPressed: () {
-                              print('Saved Places Button pressed');
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => NextStation(latLngList: newlatLngcor, stationsList: newstations, ticketsList: widget.ticketsList,),
+                                  ));
+                              print('next station is: ${newlatLngcor[1]}');
                             },
                           ),
                         ),
@@ -204,66 +277,6 @@ class MaherScreen extends StatelessWidget {
                                       20, 10, 10, 10),
                                   child: Icon(
                                     Icons.verified_user,
-                                    color: Color(0xFF040C4D),
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 4,
-                          color: Color(0x33000000),
-                          offset: Offset(0, 2),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: TextButton(
-                            child: Text(''),
-                            onPressed: () {
-                              print('Saved Places Button pressed');
-                            },
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(
-                              Icons.chevron_left,
-                              color: Color(0xFF040C4D),
-                              size: 24,
-                            ),
-                            Row(
-                              children: [
-                                Text('تخطي المحطة', style: style),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 10, 10, 10),
-                                  child: Icon(
-                                    Icons.next_plan,
                                     color: Color(0xFF040C4D),
                                     size: 24,
                                   ),

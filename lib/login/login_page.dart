@@ -5,6 +5,8 @@ import 'package:wasalny/login/text_field.dart';
 import '../screens_driver/driver_home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+String theusername = 'none';
+
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
@@ -13,11 +15,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final usernameController = TextEditingController();
+  final usernameController = TextEditingController(text: 'ziad@gmail.com');
 
-  final passwordController = TextEditingController();
+  final passwordController = TextEditingController(text: 'ziad@gmail.com');
 
-  bool pass= true;
+  bool pass = true;
+
+  String getname(String namee) {
+    String namee = theusername;
+    return namee;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,28 +49,35 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                TextFormField(
-                  controller: usernameController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: 'Email Address / Phone Number',
-                    prefixIcon: Icon(Icons.email),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                  const SizedBox(height: 10),
-                TextFormField(
-                  obscureText: pass,
-                  controller: passwordController,
-                  decoration: InputDecoration(
+                  TextFormField(
+                    controller: usernameController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      hintText: 'ziad@gmail.com',
+                      labelText: 'Email Address / Phone Number',
+                      prefixIcon: Icon(Icons.email),
                       border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      prefixIcon: Icon(Icons.lock),
-                      suffixIcon: IconButton(onPressed:(){setState(() {
-                        pass=!pass;
-                      });} ,icon: Icon(pass ? Icons.visibility_off : Icons.visibility),)
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    obscureText: pass,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                        hintText: '12345678',
+                        border: OutlineInputBorder(),
+                        labelText: 'Password',
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              pass = !pass;
+                            });
+                          },
+                          icon: Icon(
+                              pass ? Icons.visibility_off : Icons.visibility),
+                        )),
+                  ),
                   const SizedBox(height: 10),
                   // Padding(
                   //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -84,33 +98,50 @@ class _LoginPageState extends State<LoginPage> {
                     width: 250,
                     child: ElevatedButton(
                         onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                              Text('loading', style: TextStyle(color: Colors.black),),
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.white,
+                            ),
+                          );
                           FirebaseFirestore.instance
                               .collection('driver')
                               .get()
                               .then((value) {
                             bool loggedIn = false;
-                            value.docs.forEach((element){
-                              if(element.data()['driverMail']==usernameController.text||element.data()['driverPhone']==usernameController.text)
-                              {
-                                if(element.data()['driverPass']==passwordController.text)
-                                {
+                            value.docs.forEach((element) {
+                              if (element.data()['driverMail'] ==
+                                      usernameController.text ||
+                                  element.data()['driverPhone'] ==
+                                      usernameController.text) {
+                                if (element.data()['driverPass'] ==
+                                    passwordController.text) {
                                   loggedIn = true;
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)
-                                  => DriverHomePage()));
+                                  theusername = usernameController.text;
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DriverHomePage(
+                                                driveremail:
+                                                    usernameController.text,
+                                              )));
                                 }
                               }
                             });
-                            if(!loggedIn){
+                            if (!loggedIn) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Incorrect username or password'),
+                                  content:
+                                      Text('Incorrect username or password'),
                                   duration: Duration(seconds: 2),
                                   backgroundColor: Colors.red,
                                 ),
                               );
                             }
                           });
-                        },/////////////////////////////////////
+                        }, /////////////////////////////////////
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black, // Background color
                         ),
