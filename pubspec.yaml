@@ -25,8 +25,8 @@ dependencies:
   awesome_dialog: ^3.0.2
   firebase_auth: ^4.5.0
   fluttertoast: ^8.2.1
-  flutter_svg: ^0.17.3+1
   url_launcher: ^6.1.11
+  dio: ^5.1.2
 
 
 
@@ -53,6 +53,9 @@ flutter:
     - assets/images/WelcomePageBus.png
     - assets/images/OrangeLeatherWallet.png
     - assets/images/mobile-app.png
+    - assets/images/PinLine.png
+    - assets/images/2pins.png
+
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware

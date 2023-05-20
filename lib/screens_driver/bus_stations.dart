@@ -32,87 +32,87 @@ class BusStations extends StatelessWidget {
         ),
         title: const Text('مسار الرحلة'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            // Expanded(
-            //     child: ListView.builder(
-            //   itemCount: tickets.length,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     final item = tickets[index];
-            //
-            //     return Padding(
-            //       padding: const EdgeInsets.all(10),
-            //       child: Container(
-            //         color: Colors.grey,
-            //         child: Column(
-            //           children: [
-            //             Text('station name: ${item['station_name']}'),
-            //             Text('status: ${item['status']}'),
-            //             Text('tickets count: ${item['tickets_count']}'),
-            //             Text('user id: ${item['user_id']}'),
-            //           ],
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
-            // ),
-
-            Expanded(
-              child: ListView(
-                children: this.stationNames.map((station) {
-                  return Container(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.pin_drop_outlined,
-                          color: Colors.red,
-                          size: 30,
+      body: Column(
+        children: [
+          // Expanded(
+          //     child: ListView.builder(
+          //   itemCount: tickets.length,
+          //   itemBuilder: (BuildContext context, int index) {
+          //     final item = tickets[index];
+          //
+          //     return Padding(
+          //       padding: const EdgeInsets.all(10),
+          //       child: Container(
+          //         color: Colors.grey,
+          //         child: Column(
+          //           children: [
+          //             Text('station name: ${item['station_name']}'),
+          //             Text('status: ${item['status']}'),
+          //             Text('tickets count: ${item['tickets_count']}'),
+          //             Text('user id: ${item['user_id']}'),
+          //           ],
+          //         ),
+          //       ),
+          //     );
+          //   },
+          // ),
+          // ),
+          Expanded(
+            child: ListView(
+              children: this.stationNames.map((station) {
+                return Container(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(32, 0 , 16, 0),
+                        child: Image.asset(
+                          'assets/images/PinLine.png',
+                          scale: 7
                         ),
-                        Text(station),
-                      ],
-                    ),
-                    padding: EdgeInsets.all(15),
-                    color: Colors.white,
-                  );
-                }).toList(),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(const Size(300, 60)),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Color(0xFF040C4D)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        side: BorderSide(color: Color(0xFF040C4D), width: 2),
                       ),
-                    ),
+                      Text(station,
+                      style: TextStyle(fontSize: 16),),
+                    ],
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Rider1(ticketsList: tickets ,stationNamesList: stationNames, latLngList: latLng)),
-                    );
-                  },
-                  child: const Text(
-                    'أبدأ الرحلة',
-                    style: TextStyle(fontSize: 25),
-                  ),
+                  color: Colors.white,
+                );
+              }).toList(),
+            ),
+          ),
+
+          Container(
+            width: double.infinity,
+            color: Color(0xFF040C4D),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xFF040C4D)),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  // shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  //   RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(30.0),
+                  //     side: BorderSide(color: Color(0xFF040C4D), width: 2),
+                  //   ),
+                  // ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Rider1(ticketsList: tickets ,stationNamesList: stationNames, latLngList: latLng)),
+                  );
+                },
+                child: const Text(
+                  'تسجيل الركاب',
+                  style: TextStyle(fontSize: 25),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
 
       // Column(

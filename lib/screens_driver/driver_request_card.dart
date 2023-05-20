@@ -126,7 +126,7 @@ class DriverRequestCard extends StatelessWidget {
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
-                                          const Color(0xFFC8E6C9)),
+                                          const Color(0xFF040C4D)),
                                   foregroundColor:
                                       MaterialStateProperty.all<Color>(
                                           const Color(0xFF10462E)),
@@ -135,10 +135,11 @@ class DriverRequestCard extends StatelessWidget {
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     side: const BorderSide(
-                                        color: Colors.green, width: 2),
+                                        color: Color(0xFF03093A), width: 2),
                                   ))),
                               child: const Text(
                                 'تأكيد الرحلة',
+                                style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () {
                                 Navigator.push(

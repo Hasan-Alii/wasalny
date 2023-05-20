@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wasalny/screens_driver/next_station.dart';
 import 'logOut.dart';
 import 'map_page.dart';
+import 'package:dio/dio.dart';
 
 class MaherScreen extends StatefulWidget {
   final List<LatLng> latLngcor;
@@ -14,7 +16,7 @@ class MaherScreen extends StatefulWidget {
     required this.tickets,
     required this.latLngcor,
     required this.stations,
-});
+  });
 
   @override
   State<MaherScreen> createState() => _MaherScreenState();
@@ -24,22 +26,45 @@ class _MaherScreenState extends State<MaherScreen> {
   List<LatLng> latlngss = [];
   List<LatLng> newlatLngcor = [];
   List<String> newstations = [];
+  String val = '';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-
-    for(int i=0; i<widget.latLngcor.length; i++){
+    for (int i = 0; i < widget.latLngcor.length; i++) {
       latlngss.add(widget.latLngcor[i]);
     }
 
-    for(int i=1; i<widget.latLngcor.length; i++){
+    for (int i = 1; i < widget.latLngcor.length; i++) {
       newlatLngcor.add(widget.latLngcor[i]);
       newstations.add(widget.stations[i]);
     }
   }
+
+
+  Future<String> getTime() async {
+    Dio dio = new Dio();
+    Response response = await dio.get(
+        "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${latlngss.first.latitude},${latlngss.first.longitude}&destinations=${latlngss[1].latitude},${latlngss[1].longitude}&key=AIzaSyDIl4Wj2K4n0LqryXnMGNl7aMHxuNZ7zYM");
+    // Map<dynamic ,dynamic> jsonMap = json.decode(response.data);
+
+    // print(response.data["rows"][0]["elements"][0]["duration"]["text"]);
+    // ========================================================================
+    // print(response.data);
+    // ========================================================================
+    // print(
+    //   response.data.keys.forEach(
+    //     (k) {
+    //       print(k);
+    //       print(response.data[k]);
+    //     },
+    //   ),
+    // );
+    return val = response.data["rows"][0]["elements"][0]["duration"]["text"] as String;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,276 +72,234 @@ class _MaherScreenState extends State<MaherScreen> {
       appBar: AppBar(
         leading: BackButton(
           color: Colors.white,
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
         ),
         backgroundColor: Colors.black,
-        title: Center(
-          child: Text(
-            '${widget.stations.first} station',
-            style: style1,
-          ),
+        title: Text(
+          '${widget.stations.first} station',
+          style: btnstyle,
         ),
       ),
       body: Container(
-        padding: EdgeInsetsDirectional.all(12),
+        padding: EdgeInsetsDirectional.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Row(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('${widget.stations.first}',
-                      style: style,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'المحطة الحالية:',
-                          style: style,
-                        ),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        Icon(
-                          Icons.north_east,
-                          color: Colors.blueGrey,
-                        ),
-                      ],
-                    ),
-                  ],
+                Image.asset(
+                  "assets/images/2pins.png",
+                  scale: 24,
                 ),
-                SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${widget.stations[1]}',
-                      style: style,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'المحطة التالية:',
-                          style: style,
-                        ),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        Icon(
-                          Icons.north_east,
-                          color: Colors.blueGrey,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '03:12 م',
-                      style: style,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'الوقت',
-                          style: style,
-                        ),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        Icon(
-                          Icons.access_time,
-                          color: Colors.blueGrey,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 4,
-                          color: Color(0x33000000),
-                          offset: Offset(0, 2),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(8),
+                SizedBox(width: 8,),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${widget.stations.first}',
+                            style: style1,
                           ),
-                          child: TextButton(
-                            child: Text(''),
-                            onPressed: () {
-                              // Navigator
-                              //     .push(
-                              //     context,
-                              //     MaterialPageRoute(builder: (context) => MapPage(stations as List<String>, latLngcor as List<LatLng>),
-                              //     ));
-
-                              launchURL(String url) async {
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              }
-
-                              String url = 'https://www.google.com/maps/dir/?api=1&origin=${latlngss.first.latitude},${latlngss.first.longitude}&destination=${latlngss[1].latitude},${latlngss[1].longitude}&travelmode=driving&dir_action=navigate';
-                              launchURL(url);
-                            },
+                          Row(
+                            children: [
+                              Text(
+                                ':المحطة الحالية',
+                                style: style,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.my_location_sharp,
+                                color: appBlue,
+                              ),
+                            ],
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(
-                              Icons.chevron_left,
-                              color: Color(0xFF040C4D),
-                              size: 24,
-                            ),
-                            Row(
-                              children: [
-                                Text('فتح الخريطة', style: style),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 10, 10, 10),
-                                  child: Icon(
-                                    Icons.directions_sharp,
-                                    color: Color(0xFF040C4D),
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 4,
-                          color: Color(0x33000000),
-                          offset: Offset(0, 2),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.lightGreen,
-                            borderRadius: BorderRadius.circular(8),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 32,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${widget.stations[1]}',
+                            style: style1,
                           ),
-                          child: TextButton(
-                            child: Text(''),
-                            onPressed: () {Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => NextStation(latLngList: newlatLngcor, stationsList: newstations, ticketsList: widget.tickets,),
-                                  ));
-                              print('تاكيد الوصول');
-                            },
+                          Row(
+                            children: [
+                              Text(
+                                ':المحطة التالية',
+                                style: style,
+                              ),
+                              SizedBox(
+                                width: 6,
+                              ),
+                              Icon(
+                                Icons.north_east,
+                                color: appBlue,
+                              ),
+                            ],
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(
-                              Icons.chevron_left,
-                              color: Color(0xFF040C4D),
-                              size: 24,
-                            ),
-                            Row(
-                              children: [
-                                Text('تأكيد الوصول', style: style),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 10, 10, 10),
-                                  child: Icon(
-                                    Icons.verified_user,
-                                    color: Color(0xFF040C4D),
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
+
+            Divider(height: 40,color: appBlue,indent: 1,endIndent: 5,thickness: 1,),
+
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (context) => LogoutScreen()),
-                      );
-                    },
-                    child: Text('خروج الركاب', style: style,),
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(const Size(100, 100)),
-                      backgroundColor: MaterialStateProperty.all(Colors.redAccent),
-                    ),
-                  ),
+                Text(
+                  '$val',
+                  style: style,
                 ),
-                SizedBox(width: 12,),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text('دخول الركاب', style: style),
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(const Size(100, 100)),
-                      backgroundColor: MaterialStateProperty.all(Colors.grey),
+                Row(
+                  children: [
+                    Text(
+                      'الوقت المتبقي للمحطة التالية',
+                      style: style,
                     ),
-                  ),
+                    SizedBox(
+                      width: 6,
+                    ),
+                    Icon(
+                      Icons.access_time,
+                      color: appBlue,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            SizedBox(
+              height: 16,
+            ),
+
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(8, 50, 8, 8),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(
+                      const Size.fromHeight(50)),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      appBlue),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  // shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  //   RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(30.0),
+                  //     side: BorderSide(color: Color(0xFF040C4D), width: 2),
+                  //   ),
+                  // ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.chevron_left,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                    Text('فتح الخريطة', style: btnstyle),
+                    Icon(
+                      Icons.directions_sharp,
+                      color: Colors.white,
+                      size: 24,
+                    )
+                  ],
                 ),
 
-              ],
-            )
+                onPressed: () {
+                  // Navigator
+                  //     .push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => MapPage(stations as List<String>, latLngcor as List<LatLng>),
+                  //     ));
+
+                  launchURL(String url) async {
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  }
+
+                  String url =
+                      'https://www.google.com/maps/dir/?api=1&origin=${latlngss.first.latitude},${latlngss.first.longitude}&destination=${latlngss[1].latitude},${latlngss[1].longitude}&travelmode=driving&dir_action=navigate';
+                  launchURL(url);
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(
+                      const Size.fromHeight(50)),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      appGreen),
+                  foregroundColor:
+                  MaterialStateProperty.all<Color>(Colors.white),
+                  // shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  //   RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(30.0),
+                  //     side: BorderSide(color: Color(0xFF040C4D), width: 2),
+                  //   ),
+                  // ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.chevron_left,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                    Text('تأكيد الوصول', style: btnstyle),
+                    Icon(
+                      Icons.verified_user_sharp,
+                      color: Colors.white,
+                      size: 24,
+                    )
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NextStation(
+                          latLngList: newlatLngcor,
+                          stationsList: newstations,
+                          ticketsList: widget.tickets,
+                        ),
+                      ));
+                  print('تاكيد الوصول');
+                },
+              ),
+            ),
+
+
+
+
+            Text(
+              '${getTime().then((String result){
+                setState(() {
+                  val = result;
+                });
+              })}$val',
+              style: btnstyle,
+            ),
+
           ],
         ),
       ),
@@ -324,6 +307,12 @@ class _MaherScreenState extends State<MaherScreen> {
   }
 }
 
-TextStyle style = TextStyle(fontSize: 22, color: Colors.black);
+TextStyle style = TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold);
 
-TextStyle style1 = TextStyle(fontSize: 25, color: Colors.white);
+TextStyle style1 = TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold);
+
+TextStyle btnstyle = TextStyle(fontSize: 22, color: Colors.white);
+
+Color appBlue = Color(0xFF040C4D);
+
+Color appGreen = Color(0xFF10462E);

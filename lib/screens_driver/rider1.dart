@@ -28,227 +28,266 @@ class _Rider1State extends State<Rider1> {
   Widget build(BuildContext context) {
     bool _checkbox = false;
     return Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.green,
-          title: Center(child: Text('دخول الركاب')),
+          backgroundColor: Color(0xFF040C4D),
+          title: Text('دخول الركاب'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  child: Expanded(
-                    child: ListView.builder(
-                      itemCount: widget.ticketsList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = widget.ticketsList[index];
-                        var name = '${item['user_id']}';
-                        var code = name.substring(name.length-3, name.length-1);
-                        var name1 = names[index];
-                        var count = widget.ticketsList.length;
-                        // FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                        //   future: FirebaseFirestore.instance
-                        //       .collection('users')
-                        //       .doc(item[index])
-                        //       .get(),
-                        //   builder: (_, snapshot) {
-                        //     if (snapshot.hasData) {
-                        //       var data = snapshot.data!.data();
-                        //       var value = data!['first_name'];
-                        //       name = value;
-                        //       return Text(value);
-                        //     }
-                        //     return const Text('User');
-                        //   },
-                        // );
+        body: Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                child: Expanded(
+                  child: ListView.builder(
+                    itemCount: widget.ticketsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = widget.ticketsList[index];
+                      var name = '${item['user_id']}';
+                      var code = name.substring(name.length-3, name.length-1);
+                      var name1 = names[index];
+                      var count = widget.ticketsList.length;
+                      // FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                      //   future: FirebaseFirestore.instance
+                      //       .collection('users')
+                      //       .doc(item[index])
+                      //       .get(),
+                      //   builder: (_, snapshot) {
+                      //     if (snapshot.hasData) {
+                      //       var data = snapshot.data!.data();
+                      //       var value = data!['first_name'];
+                      //       name = value;
+                      //       return Text(value);
+                      //     }
+                      //     return const Text('User');
+                      //   },
+                      // );
 
-
-
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Stack(
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              Container(
-                                height: 150,
-                                color: Colors.white,
-                                child: Padding(
+                      return Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                width: 1,
+                                color: Color(0xFF040C4D)
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(10),
+                            ),
+                          ),
+                          // height: 150,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 70),
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom:16),
+                                        child: CircleAvatar(
                                           child: Icon(
                                             Icons.person,
                                             color: Colors.white,
+                                            size: 18,
                                           ),
+                                          backgroundColor: Color(0xFF040C4D),
+                                          radius: 20,
                                         ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.only(
-                                                bottom: 22),
-                                            child: Text(
-                                              '${name1}',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(10, 16, 0, 16),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${name1}',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                    ),
+                                                    // softWrap: false,
+                                                    maxLines: 1,
+                                                    overflow:
+                                                    TextOverflow.ellipsis,
+                                                  ),
+                                                ],
                                               ),
-                                              // softWrap: false,
-                                              maxLines: 1,
-                                              overflow:
-                                              TextOverflow.ellipsis,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.airline_seat_recline_normal,
+                                                  color: Colors.black,
+                                                ),
+                                                Text(
+                                                  'عدد المقاعد ${item['tickets_count']}   |',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  'كاش ',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom:16),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[600],
+                                            borderRadius: BorderRadius.all(Radius.circular(5),
+                                            ),
+                                          ),
+                                          height: 45,
+                                          width: 45,
+                                          child: Center(
+                                            child: Text(
+                                              '$code',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                              fontSize: 16,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 6,
-                                        ),
-                                        Padding(
-                                            padding:
-                                            const EdgeInsets.only(
-                                                top: 7),
-                                            child: Container(
-                                              height: 50,
-                                              width: 50,
-                                              color: Colors.grey[600],
-                                              child: Center(
-                                                child: Text(
-                                                  '$code',
-                                                  style: TextStyle(
-                                                      color:
-                                                      Colors.white),
-                                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // SizedBox(height: 4,),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                width: 1,
+                                                color: Color(0xFF040C4D)
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(5),
+                                            ),
+                                          ),
+                                          height: 50,
+                                          width: double.infinity,
+                                          child: MaterialButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                print(widget.ticketsList[index]['status']);
+                                                widget.ticketsList[index]['status']='notsigned';
+                                                names.removeAt(index);
+                                                widget.ticketsList.removeAt(index);
+                                              });},
+                                            child: Center(
+                                              child: Text(
+                                                'غير موجود',
+                                                style: TextStyle(
+                                                    color: Colors.black),
                                               ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 60, bottom: 74),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.airline_seat_recline_normal,
-                                      color: Colors.black,
-                                    ),
-                                    Text(
-                                      'عدد المقاعد ${item['tickets_count']}',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      'كاش',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 60, left: 10, right: 10),
-                                child: Container(
-                                  height: 1,
-                                  width: double.infinity,
-                                  color: Colors.grey[300],
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      height: 50,
-                                      width: double.infinity,
-                                      color: Colors.redAccent,
-                                      child: MaterialButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            print(widget.ticketsList[index]['status']);
-                                            widget.ticketsList[index]['status']='notsigned';
-                                            names.removeAt(index);
-                                            widget.ticketsList.removeAt(index);
-                                          });},
-                                        child: Center(
-                                          child: Text(
-                                            'غير موجود',
-                                            style: TextStyle(
-                                                color: Colors.white),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      height: 50,
-                                      width: double.infinity,
-                                      color: Colors.blue,
-                                      child: MaterialButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            print(widget.ticketsList[index]['status']);
-                                            widget.ticketsList[index]['status']='signed';
-                                            names.removeAt(index);
-                                            widget.ticketsList.removeAt(index);
-                                        });},
-                                        child: Center(
-                                          child: Text(
-                                            'تسجيل دخول',
-                                            style: TextStyle(
-                                                color: Colors.white),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF040C4D),
+                                            border: Border.all(
+                                                width: 1,
+                                                color: Color(0xFF040C4D)
+                                            ),
+                                            borderRadius: BorderRadius.all(Radius.circular(5),
+                                            ),
+                                          ),
+                                          height: 50,
+                                          width: double.infinity,
+                                          child: MaterialButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                print(widget.ticketsList[index]['status']);
+                                                widget.ticketsList[index]['status']='signed';
+                                                names.removeAt(index);
+                                                widget.ticketsList.removeAt(index);
+                                              });},
+                                            child: Center(
+                                              child: Text(
+                                                'تسجيل دخول',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    ],
+                                  ),),
+                              ],
+                            ),
                           ),
-                        );
-
-                        // return Padding(
-                        //   padding: const EdgeInsets.all(10),
-                        //   child: Container(
-                        //     color: Colors.grey,
-                        //     child: Column(
-                        //       children: [
-                        //         Text('station name: ${item['station_name']}'),
-                        //         Text('status: ${item['status']}'),
-                        //         Text('tickets count: ${item['tickets_count']}'),
-                        //         Text('user id: ${item['user_id']}'),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                    ),
+                        ),
+                      );
+                      // return Padding(
+                      //   padding: const EdgeInsets.all(10),
+                      //   child: Container(
+                      //     color: Colors.grey,
+                      //     child: Column(
+                      //       children: [
+                      //         Text('station name: ${item['station_name']}'),
+                      //         Text('status: ${item['status']}'),
+                      //         Text('tickets count: ${item['tickets_count']}'),
+                      //         Text('user id: ${item['user_id']}'),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // );
+                    },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.all(10),
+              ),
+
+              Container(
+                color: Color(0xFF040C4D),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.all(8.0),
                   child: ElevatedButton(
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
+                      backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xFF040C4D)),
+                      foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                      // shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      //   RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(30.0),
+                      //     side: BorderSide(color: Color(0xFF040C4D), width: 2),
+                      //   ),
+                      // ),
+                    ),
                     onPressed: () {
                       if(names.isEmpty){
                         Navigator.push(
@@ -258,14 +297,15 @@ class _Rider1State extends State<Rider1> {
                       }
                     },
                     child: Center(
-                      child: Text('بدأ الرحلة'),
+                      child: Text('بدأ الرحلة',
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
 
                   ),
-                )
-
-              ]
-              ),
-        ));
+                ),
+              )
+            ]
+            ));
   }
 }
