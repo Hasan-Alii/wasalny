@@ -11,7 +11,13 @@ class NavBarWidget extends StatefulWidget {
 class _NavBarWidget extends State<NavBarWidget> {
   int _index = 0;
   String action = "Home";
-  final List<Widget> _pages = [DriverHomePage(),    SettingsPageWidget(),    SettingsPageWidget(),  ];
+  final List<Widget> _pages = [
+    DriverHomePage(
+    // driverEmail: '',
+    ),
+    SettingsPageWidget(),
+    SettingsPageWidget(),
+  ];
 
 
   @override
@@ -32,7 +38,7 @@ class _NavBarWidget extends State<NavBarWidget> {
         ],
 
       ),
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       // backgroundColor: Colors.white,
       body: _pages[_index],
     );

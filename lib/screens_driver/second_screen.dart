@@ -9,22 +9,22 @@ import 'logOut.dart';
 import 'map_page.dart';
 import 'package:dio/dio.dart';
 
-class MaherScreen extends StatefulWidget {
+class SecondScreen extends StatefulWidget {
   final List<LatLng> latLngcor;
   final List<String> stations;
   List<dynamic> tickets;
 
-  MaherScreen({
+  SecondScreen({
     required this.tickets,
     required this.latLngcor,
     required this.stations,
   });
 
   @override
-  State<MaherScreen> createState() => _MaherScreenState();
+  State<SecondScreen> createState() => _SecondScreenState();
 }
 
-class _MaherScreenState extends State<MaherScreen> {
+class _SecondScreenState extends State<SecondScreen> {
   List<LatLng> latlngss = [];
   List<LatLng> newlatLngcor = [];
   List<String> newstations = [];
@@ -39,7 +39,7 @@ class _MaherScreenState extends State<MaherScreen> {
       latlngss.add(widget.latLngcor[i]);
     }
 
-    for (int i = 0; i < widget.latLngcor.length; i++) {
+    for (int i = 1; i < widget.latLngcor.length; i++) {
       newlatLngcor.add(widget.latLngcor[i]);
       newstations.add(widget.stations[i]);
     }
@@ -223,7 +223,7 @@ class _MaherScreenState extends State<MaherScreen> {
                   backgroundColor: MaterialStateProperty.all<Color>(
                       appBlue),
                   foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
+                  MaterialStateProperty.all<Color>(Colors.white),
                   // shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   //   RoundedRectangleBorder(
                   //     borderRadius: BorderRadius.circular(30.0),
@@ -302,26 +302,26 @@ class _MaherScreenState extends State<MaherScreen> {
                 ),
                 onPressed: () {
 
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => NextStation(
-                  //         latLngList: newlatLngcor,
-                  //         stationsList : newstations,
-                  //         ticketsList: widget.tickets,
-                  //       ),
-                  //     ));
-
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Boarding(
-                          latLng: newlatLngcor,
-                          stationNames: newstations,
-                          tickets: widget.tickets,
-                          newStaionss: newstations,
+                        builder: (context) => NextStation(
+                          latLngList: newlatLngcor,
+                          stationsList : newstations,
+                          ticketsList: widget.tickets,
                         ),
                       ));
+
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => Boarding(
+                  //         latLng: newlatLngcor,
+                  //         stationNames: newstations,
+                  //         tickets: widget.tickets,
+                  //         newStaionss: widget.stations,
+                  //       ),
+                  //     ));
                   print('تاكيد الوصول');
                 },
               ),

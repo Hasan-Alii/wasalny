@@ -15,6 +15,11 @@ import 'package:wasalny/screens_wasalny/payment_page_2.dart';
 import 'package:wasalny/screens_wasalny/settings_page.dart';
 import 'package:wasalny/login/login_page.dart';
 
+String dName ='';
+String dEmail='';
+String dPhone='';
+String dId='';
+String dDoc='';
 
 
 Future<void> main() async {

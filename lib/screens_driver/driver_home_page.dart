@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../main.dart';
 import '../screens_wasalny/settings_page.dart';
 import 'navigation_bar.dart';
 import 'rider1.dart';
@@ -14,11 +15,22 @@ import 'driver_request_card.dart';
 import 'package:wasalny/login/login_page.dart';
 
 
+String doc = "$dDoc";
+
 class DriverHomePage extends StatefulWidget {
-  final String driveremail;
+  // String driverEmail;
+  // final String driverName;
+  // final String driverID;
+  // final String driverPhone;
+
+
   DriverHomePage({
     Key? key,
-    this.driveremail ='',
+    // this.driverEmail='',
+    // this.driverName ='',
+    // this.driverID ='',
+    // this.driverPhone ='',
+
   }): super(key: key);
 
   @override
@@ -349,200 +361,6 @@ class _DriverHomePageState extends State<DriverHomePage> {
   // );
   // final currentDate = DateTime.now().day;
 
-  int _index = 0;
-  String action = "Home";
-  final List<Widget> _pages = [
-    SafeArea(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('trip')
-        // .where('assignedDriver', isEqualTo: widget.driveremail)
-        // .where('tripTime' as DateTime, isEqualTo: DateTime.now().year)
-            .snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot> tripsSnapshot) {
-          if (tripsSnapshot.hasError) {
-            // Handle the error
-            if (tripsSnapshot.error
-                .toString()
-                .contains('Failed assertion')) {
-              // Handle the 'in' filter error specifically
-              return const Text(
-                  'Error: Empty list passed to "whereIn" query');
-            } else {
-              return Text('Error: ${tripsSnapshot.error}');
-            }
-          }
-          if (tripsSnapshot.connectionState ==
-              ConnectionState.waiting) {
-            return Container(
-              child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      child: CircularProgressIndicator(),
-                      height: 50.0,
-                      width: 50.0,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }
-          if (tripsSnapshot.data == null ||
-              tripsSnapshot.data!.docs.isEmpty) {
-            return const Text(
-                'No trips found for this university.' // Display a message when no trips are found
-            );
-          }
-
-          return ListView.builder(
-            itemCount: tripsSnapshot.data!.docs.length,
-            itemBuilder: (BuildContext context, int index) {
-              DocumentSnapshot document =
-              tripsSnapshot.data!.docs[index];
-              String tripStart = document['tripTime'];
-              String tripEnd = document['tripEnd'];
-              DocumentReference busRef = document['bus'];
-              var tickets = document['tickets'];
-
-              // Retrieve the route document
-              DocumentReference routeRef = document['routeNo'];
-              return FutureBuilder<DocumentSnapshot>(
-                future: routeRef.get(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<DocumentSnapshot> routeSnapshot) {
-                  if (routeSnapshot.hasError) {
-                    return Text('Error: ${routeSnapshot.error}');
-                  }
-                  if (routeSnapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Container(
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              child: CircularProgressIndicator(),
-                              height: 50.0,
-                              width: 50.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }
-                  List<DocumentReference> stationRefs = routeSnapshot
-                      .data!['stationRefs']
-                      .cast<DocumentReference>();
-
-                  // Retrieve the bus document
-                  return FutureBuilder<DocumentSnapshot>(
-                    future: busRef.get(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<DocumentSnapshot> busSnapshot) {
-                      if (busSnapshot.hasError) {
-                        return Text('Error: ${busSnapshot.error}');
-                      }
-                      if (busSnapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Container(
-                          child: Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  child: CircularProgressIndicator(),
-                                  height: 50.0,
-                                  width: 50.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }
-                      String busNo = busSnapshot.data!['busID'];
-
-                      // Use the retrieved stationRefs to access station documents
-                      return FutureBuilder<List<DocumentSnapshot>>(
-                        future: Future.wait(stationRefs
-                            .map((stationRef) => stationRef.get())),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<DocumentSnapshot>>
-                            stationSnapshots) {
-                          if (stationSnapshots.hasError) {
-                            return Text(
-                                'Error: ${stationSnapshots.error}');
-                          }
-                          if (stationSnapshots.connectionState ==
-                              ConnectionState.waiting) {
-                            return Container(
-                              child: Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      child: CircularProgressIndicator(),
-                                      height: 50.0,
-                                      width: 50.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }
-
-                          // Extract station names from station documents
-                          List<String> stationNames = stationSnapshots
-                              .data!
-                              .map((stationSnapshot) =>
-                          stationSnapshot['stationName'])
-                              .cast<String>()
-                              .toList();
-
-                          // latLngList = [];
-                          // Extract latitude and longitude from station documents
-                          List<LatLng> latLngList =
-                          stationSnapshots.data!
-                              .map((stationSnapshot) => LatLng(
-                            stationSnapshot['location']
-                                .latitude, // Retrieve latitude
-                            stationSnapshot['location']
-                                .longitude, // Retrieve longitude
-                          ))
-                              .toList();
-
-                          return DriverRequestCard(
-                            ticketsList: tickets,
-                            stationNamesList: stationNames,
-                            latLngList: latLngList,
-                            tripStart: tripStart,
-                            tripEnd: tripEnd,
-                            startPoint:
-                            stationNames.isNotEmpty
-                                ? stationNames.first
-                                : 'Unknown',
-                            endPoint: stationNames.isNotEmpty
-                                ? stationNames.last
-                                : 'Unknown',
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
-    ),
-    // DriverHomePage(),
-    SettingsPageWidget(),
-    SettingsPageWidget(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -562,24 +380,195 @@ class _DriverHomePageState extends State<DriverHomePage> {
         ),
         backgroundColor: Color(0xFF040C4D),
       ),
-      bottomNavigationBar: FloatingNavbar(
-        backgroundColor: Color(0xFF040C4D),
-        width: 350,
-        borderRadius: 40,
-        itemBorderRadius: 40,
-        onTap: (int val) => setState(() => _index = val),
-        currentIndex: _index,
-
-        items: [
-          FloatingNavbarItem(icon: Icons.home, title: 'رحلات اليوم',),
-          FloatingNavbarItem(icon: Icons.history, title: 'سجل الرحلات',),
-          FloatingNavbarItem(icon: Icons.person, title: 'الحساب',),
-        ],
-
-      ),
         // backgroundColor: Colors.white,
         // blueGrey[50],
-        body:  _pages[_index],
+        body: SafeArea(
+          child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('trip')
+                .where('driverId', isNotEqualTo: dEmail)
+            // .where('tripTime' as DateTime, isEqualTo: DateTime.now().year)
+                .snapshots(),
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot> tripsSnapshot) {
+              if (tripsSnapshot.hasError) {
+                // Handle the error
+                if (tripsSnapshot.error
+                    .toString()
+                    .contains('Failed assertion')) {
+                  // Handle the 'in' filter error specifically
+                  return const Text(
+                      'Error: Empty list passed to "whereIn" query');
+                } else {
+                  return Text('Error: ${tripsSnapshot.error}');
+                }
+              }
+              if (tripsSnapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return Container(
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          child: CircularProgressIndicator(),
+                          height: 50.0,
+                          width: 50.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              if (tripsSnapshot.data == null ||
+                  tripsSnapshot.data!.docs.isEmpty) {
+                return const Text(
+                    'No trips found for this university.' // Display a message when no trips are found
+                );
+              }
+
+              return ListView.builder(
+                itemCount: tripsSnapshot.data!.docs.length,
+                itemBuilder: (BuildContext context, int index) {
+                  DocumentSnapshot document =
+                  tripsSnapshot.data!.docs[index];
+                  String tripStart = document['tripTime'];
+                  String tripEnd = document['tripEnd'];
+                  DocumentReference busRef = document['bus'];
+                  var tickets = document['tickets'];
+
+                  // Retrieve the route document
+                  DocumentReference routeRef = document['routeNo'];
+                  return FutureBuilder<DocumentSnapshot>(
+                    future: routeRef.get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> routeSnapshot) {
+                      if (routeSnapshot.hasError) {
+                        return Text('Error: ${routeSnapshot.error}');
+                      }
+                      if (routeSnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Container(
+                          child: Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  child: CircularProgressIndicator(),
+                                  height: 50.0,
+                                  width: 50.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      List<DocumentReference> stationRefs = routeSnapshot
+                          .data!['stationRefs']
+                          .cast<DocumentReference>();
+
+                      // Retrieve the bus document
+                      return FutureBuilder<DocumentSnapshot>(
+                        future: busRef.get(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> busSnapshot) {
+                          if (busSnapshot.hasError) {
+                            return Text('Error: ${busSnapshot.error}');
+                          }
+                          if (busSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Container(
+                              child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      child: CircularProgressIndicator(),
+                                      height: 50.0,
+                                      width: 50.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                          String busNo = busSnapshot.data!['busID'];
+
+                          // Use the retrieved stationRefs to access station documents
+                          return FutureBuilder<List<DocumentSnapshot>>(
+                            future: Future.wait(stationRefs
+                                .map((stationRef) => stationRef.get())),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<DocumentSnapshot>>
+                                stationSnapshots) {
+                              if (stationSnapshots.hasError) {
+                                return Text(
+                                    'Error: ${stationSnapshots.error}');
+                              }
+                              if (stationSnapshots.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Container(
+                                  child: Center(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          child: CircularProgressIndicator(),
+                                          height: 50.0,
+                                          width: 50.0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              // Extract station names from station documents
+                              List<String> stationNames = stationSnapshots
+                                  .data!
+                                  .map((stationSnapshot) =>
+                              stationSnapshot['stationName'])
+                                  .cast<String>()
+                                  .toList();
+
+                              // latLngList = [];
+                              // Extract latitude and longitude from station documents
+                              List<LatLng> latLngList =
+                              stationSnapshots.data!
+                                  .map((stationSnapshot) => LatLng(
+                                stationSnapshot['location']
+                                    .latitude, // Retrieve latitude
+                                stationSnapshot['location']
+                                    .longitude, // Retrieve longitude
+                              ))
+                                  .toList();
+
+                              return DriverRequestCard(
+                                ticketsList: tickets,
+                                stationNamesList: stationNames,
+                                latLngList: latLngList,
+                                tripStart: tripStart,
+                                tripEnd: tripEnd,
+                                startPoint:
+                                stationNames.isNotEmpty
+                                    ? stationNames.first
+                                    : 'Unknown',
+                                endPoint: stationNames.isNotEmpty
+                                    ? stationNames.last
+                                    : 'Unknown',
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      // DriverHomePage(),,
       );
   }
 }

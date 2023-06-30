@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wasalny/screens_driver/maher%20screen.dart';
 import 'driver_home_page.dart';
 import 'rider1.dart';
 import 'dart:async';
@@ -9,13 +10,13 @@ import 'dart:async';
 class BusStations extends StatelessWidget {
   final List<LatLng> latLng;
   final List<String> stationNames;
-  List<dynamic> tickets;
+  List<dynamic> ticketslist;
 
 
   BusStations({
     required this.latLng,
     required this.stationNames,
-    required this.tickets,
+    required this.ticketslist,
   });
 
   @override
@@ -102,7 +103,7 @@ class BusStations extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Rider1(ticketsList: tickets ,stationNamesList: stationNames, latLngList: latLng)),
+                    MaterialPageRoute(builder: (context) => MaherScreen(tickets: ticketslist ,stations: stationNames, latLngcor: latLng)),
                   );
                 },
                 child: const Text(

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'boarding.dart';
 import 'logOut.dart';
 import 'map_page.dart';
 
@@ -66,27 +67,27 @@ class _NextStationState extends State<NextStation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: Text('دخول الركاب', style: style1),
-          style: ButtonStyle(
-            minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
-            backgroundColor:
-            MaterialStateProperty.all<Color>(Colors.white),
-            foregroundColor:
-            MaterialStateProperty.all<Color>(Colors.white),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-                side: BorderSide(color: Color(0xFF040C4D), width: 2),
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      //   child: ElevatedButton(
+      //     onPressed: () {},
+      //     child: Text('دخول الركاب', style: style1),
+      //     style: ButtonStyle(
+      //       minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
+      //       backgroundColor:
+      //       MaterialStateProperty.all<Color>(Colors.white),
+      //       foregroundColor:
+      //       MaterialStateProperty.all<Color>(Colors.white),
+      //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      //         RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(5),
+      //           side: BorderSide(color: Color(0xFF040C4D), width: 2),
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         leading: BackButton(
           color: Colors.white,
@@ -97,7 +98,7 @@ class _NextStationState extends State<NextStation> {
         backgroundColor: Colors.black,
         title: Text(
           '${newstations.first} station',
-          style: style1,
+          style: btnstyle,
         ),
       ),
       body: Container(
@@ -239,14 +240,14 @@ class _NextStationState extends State<NextStation> {
                     ),
                     Text('فتح الخريطة', style: btnstyle),
                     Icon(
-                      Icons.directions_sharp,
+                      Icons.map_outlined,
                       color: Colors.white,
                       size: 24,
                     )
                   ],
                 ),
                 onPressed: () {
-                  if (newlatLngcor.length > 2) {
+                  if (newlatLngcor.length >= 2) {
                     launchURL(String url) async {
                       if (await canLaunch(url)) {
                         await launch(url);
@@ -310,13 +311,25 @@ class _NextStationState extends State<NextStation> {
                 ),
                 onPressed: () {
                   if (newlatLngcor.length > 2) {
+
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => NextStation(
+                    //         latLngList: newlatLngcor,
+                    //         stationsList : newstations,
+                    //         ticketsList: widget.ticketsList,
+                    //       ),
+                    //     ));
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NextStation(
-                            latLngList: newlatLngcor,
-                            stationsList: newstations,
-                            ticketsList: widget.ticketsList,
+                          builder: (context) => Boarding(
+                            latLng: newlatLngcor,
+                            stationNames: newstations,
+                            tickets: widget.ticketsList,
+                            newStaionss: newstations,
                           ),
                         ));
                     print('next station is: ${newlatLngcor[1]}');
@@ -338,13 +351,16 @@ class _NextStationState extends State<NextStation> {
               ),
             ),
 
-            Text(
-              '${getTime().then((String result){
-                setState(() {
-                  val = result;
-                });
-              })}$val',
-              style: btnstyle,
+            Visibility(
+              visible: false,
+              child: Text(
+                '${getTime().then((String result){
+                  setState(() {
+                    val = result;
+                  });
+                })}$val',
+                style: btnstyle,
+              ),
             ),
 
 
