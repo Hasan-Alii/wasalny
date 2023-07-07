@@ -423,7 +423,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
               if (tripsSnapshot.data == null ||
                   tripsSnapshot.data!.docs.isEmpty) {
                 return const Text(
-                    'No trips found for this university.' // Display a message when no trips are found
+                    'No trips available.' // Display a message when no trips are found
                 );
               }
 

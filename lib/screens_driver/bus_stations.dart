@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wasalny/screens_driver/boarding.dart';
 import 'package:wasalny/screens_driver/maher%20screen.dart';
 import 'driver_home_page.dart';
 import 'rider1.dart';
@@ -103,11 +104,14 @@ class BusStations extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MaherScreen(tickets: ticketslist ,stations: stationNames, latLngcor: latLng)),
+                    MaterialPageRoute(builder: (context) =>
+                        // Rider1(latLngList: latLng, stationNamesList: stationNames, ticketsList: ticketslist)),
+                        // Boarding(latLng: latLng, stationNames: stationNames, tickets: ticketslist, newStaionss: stationNames)),
+                        MaherScreen(tickets: ticketslist ,stations: stationNames, latLngcor: latLng)),
                   );
                 },
                 child: const Text(
-                  'تسجيل الركاب',
+                  'بدأ الرحلة',
                   style: TextStyle(fontSize: 25),
                 ),
               ),

@@ -38,10 +38,11 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
-                  Image.asset('assets/images/mobile-app.png'),
+                  Image.asset('assets/images/MainPageBus2.png', color: Color(0xFF040C4D)),
                   const SizedBox(height: 50),
                   Text(
-                    "Welcome To Wasalny Driver",
+                    "Welcome To Driver Application",
+                    // "Welcome To UniBus Driver",
                     style: TextStyle(
                       color: appBlue,
                       fontSize: 20,

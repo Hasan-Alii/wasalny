@@ -72,32 +72,37 @@ class _MaherScreenState extends State<MaherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-      //   child: ElevatedButton(
-      //     onPressed: () {
-      //       Navigator.push(
-      //         context,
-      //         MaterialPageRoute(builder: (context) => Boarding(tickets: widget.tickets ,stationNames: widget.stations, latLng: widget.latLngcor)),
-      //       );
-      //     },
-      //     child: Text('دخول الركاب', style: style1),
-      //     style: ButtonStyle(
-      //       minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
-      //       backgroundColor:
-      //       MaterialStateProperty.all<Color>(Colors.white),
-      //       foregroundColor:
-      //       MaterialStateProperty.all<Color>(Colors.white),
-      //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      //         RoundedRectangleBorder(
-      //           borderRadius: BorderRadius.circular(5),
-      //           side: BorderSide(color: Color(0xFF040C4D), width: 2),
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Boarding(
+                    latLng: newlatLngcor,
+                    stationNames: newstations,
+                    tickets: widget.tickets,
+                    newStaionss: newstations,
+                  ),
+                ));          },
+          child: Text('دخول الركاب', style: style1),
+          style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Colors.white),
+            foregroundColor:
+            MaterialStateProperty.all<Color>(Colors.white),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+                side: BorderSide(color: Color(0xFF040C4D), width: 2),
+              ),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         leading: BackButton(
           color: Colors.white,
@@ -302,26 +307,26 @@ class _MaherScreenState extends State<MaherScreen> {
                 ),
                 onPressed: () {
 
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => NextStation(
-                  //         latLngList: newlatLngcor,
-                  //         stationsList : newstations,
-                  //         ticketsList: widget.tickets,
-                  //       ),
-                  //     ));
-
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Boarding(
-                          latLng: newlatLngcor,
-                          stationNames: newstations,
-                          tickets: widget.tickets,
-                          newStaionss: newstations,
+                        builder: (context) => NextStation(
+                          latLngList: newlatLngcor,
+                          stationsList : newstations,
+                          ticketsList: widget.tickets,
                         ),
                       ));
+
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => Boarding(
+                  //         latLng: newlatLngcor,
+                  //         stationNames: newstations,
+                  //         tickets: widget.tickets,
+                  //         newStaionss: newstations,
+                  //       ),
+                  //     ));
                   print('تاكيد الوصول');
                 },
               ),

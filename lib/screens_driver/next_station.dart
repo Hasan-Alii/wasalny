@@ -67,27 +67,38 @@ class _NextStationState extends State<NextStation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-      //   child: ElevatedButton(
-      //     onPressed: () {},
-      //     child: Text('دخول الركاب', style: style1),
-      //     style: ButtonStyle(
-      //       minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
-      //       backgroundColor:
-      //       MaterialStateProperty.all<Color>(Colors.white),
-      //       foregroundColor:
-      //       MaterialStateProperty.all<Color>(Colors.white),
-      //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      //         RoundedRectangleBorder(
-      //           borderRadius: BorderRadius.circular(5),
-      //           side: BorderSide(color: Color(0xFF040C4D), width: 2),
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Boarding(
+                    latLng: newlatLngcor,
+                    stationNames: newstations,
+                    tickets: widget.ticketsList,
+                    newStaionss: newstations,
+                  ),
+                ));
+          },
+          child: Text('دخول الركاب', style: style1),
+          style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Colors.white),
+            foregroundColor:
+            MaterialStateProperty.all<Color>(Colors.white),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+                side: BorderSide(color: Color(0xFF040C4D), width: 2),
+              ),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         leading: BackButton(
           color: Colors.white,
@@ -312,26 +323,26 @@ class _NextStationState extends State<NextStation> {
                 onPressed: () {
                   if (newlatLngcor.length > 2) {
 
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => NextStation(
-                    //         latLngList: newlatLngcor,
-                    //         stationsList : newstations,
-                    //         ticketsList: widget.ticketsList,
-                    //       ),
-                    //     ));
-
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Boarding(
-                            latLng: newlatLngcor,
-                            stationNames: newstations,
-                            tickets: widget.ticketsList,
-                            newStaionss: newstations,
+                          builder: (context) => NextStation(
+                            latLngList: newlatLngcor,
+                            stationsList : newstations,
+                            ticketsList: widget.ticketsList,
                           ),
                         ));
+
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => Boarding(
+                    //         latLng: newlatLngcor,
+                    //         stationNames: newstations,
+                    //         tickets: widget.ticketsList,
+                    //         newStaionss: newstations,
+                    //       ),
+                    //     ));
                     print('next station is: ${newlatLngcor[1]}');
                   } else {
                     Navigator.push(

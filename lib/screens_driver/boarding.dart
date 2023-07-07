@@ -298,17 +298,18 @@ class _BoardingState extends State<Boarding> {
                           MaterialStateProperty.all<Color>(Colors.white),
                     ),
                     onPressed: () {
-                      // if (names.isEmpty) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NextStation(
-                                latLngList: widget.latLng,
-                                stationsList: widget.stationNames,
-                                ticketsList: widget.tickets,
-                              ),
-                            ));
-                      // }
+                      Navigator.pop(context);
+                      // // if (names.isEmpty) {
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => NextStation(
+                      //           latLngList: widget.latLng,
+                      //           stationsList: widget.stationNames,
+                      //           ticketsList: widget.tickets,
+                      //         ),
+                      //       ));
+                      // // }
                     },
                     child: Center(
                       child: Text(

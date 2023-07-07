@@ -9,6 +9,7 @@ class Rider1 extends StatefulWidget {
   final List<LatLng> latLngList;
   final List<String> stationNamesList;
   List<dynamic> ticketsList;
+  List<dynamic>newStationNames = [];
 
   Rider1({
     required this.latLngList,
@@ -25,6 +26,19 @@ class _Rider1State extends State<Rider1> {
   List<String> names = ['Ahmed Mohamed', 'ziad amer', 'Ziad Alaa', 'amer', 'Alaa'];
 
   @override
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    for(int i=0; i<widget.ticketsList.length; i++){
+      if(widget.ticketsList[i]['station_name'] == widget.stationNamesList.first){
+        widget.newStationNames.add(widget.ticketsList[i]);
+      }
+    }
+
+  }
+
   Widget build(BuildContext context) {
     bool _checkbox = false;
 
@@ -46,9 +60,9 @@ class _Rider1State extends State<Rider1> {
               Container(
                 child: Expanded(
                   child: ListView.builder(
-                    itemCount: widget.ticketsList.length,
+                    itemCount: widget.newStationNames.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final item = widget.ticketsList[index];
+                      final item = widget.newStationNames[index];
                       var name = '${item['user_id']}';
                       var code = name.substring(name.length-3, name.length-1);
                       var name1 = names[index];
@@ -202,10 +216,10 @@ class _Rider1State extends State<Rider1> {
                                           child: MaterialButton(
                                             onPressed: () {
                                               setState(() {
-                                                print(widget.ticketsList[index]['status']);
-                                                widget.ticketsList[index]['status']='notsigned';
+                                                print(widget.newStationNames[index]['status']);
+                                                widget.newStationNames[index]['status']='notsigned';
                                                 names.removeAt(index);
-                                                widget.ticketsList.removeAt(index);
+                                                widget.newStationNames.removeAt(index);
                                               });},
                                             child: Center(
                                               child: Text(
@@ -236,10 +250,10 @@ class _Rider1State extends State<Rider1> {
                                           child: MaterialButton(
                                             onPressed: () {
                                               setState(() {
-                                                print(widget.ticketsList[index]['status']);
-                                                widget.ticketsList[index]['status']='signed';
+                                                print(widget.newStationNames[index]['status']);
+                                                widget.newStationNames[index]['status']='signed';
                                                 names.removeAt(index);
-                                                widget.ticketsList.removeAt(index);
+                                                widget.newStationNames.removeAt(index);
                                               });},
                                             child: Center(
                                               child: Text(
