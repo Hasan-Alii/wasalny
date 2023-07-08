@@ -365,13 +365,19 @@ class _DriverHomePageState extends State<DriverHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 0,
+        leading: BackButton(
+          color: Color(0xFF040C4D),
+          onPressed: () {
+          },
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              "!أهلا بك",
+              "${dName.split(" ")[0]} اهلا بك يا ",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 28,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -386,7 +392,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
           child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('trip')
-                .where('driverId', isNotEqualTo: dEmail)
+                .where('driverEmail', isEqualTo: dEmail)
             // .where('tripTime' as DateTime, isEqualTo: DateTime.now().year)
                 .snapshots(),
             builder: (BuildContext context,
@@ -423,7 +429,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
               if (tripsSnapshot.data == null ||
                   tripsSnapshot.data!.docs.isEmpty) {
                 return const Text(
-                    'No trips available.' // Display a message when no trips are found
+                    'No trips available.'
                 );
               }
 
@@ -444,7 +450,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                     builder: (BuildContext context,
                         AsyncSnapshot<DocumentSnapshot> routeSnapshot) {
                       if (routeSnapshot.hasError) {
-                        return Text('Error: ${routeSnapshot.error}');
+                        // return Text('Error: ${routeSnapshot.error}');
                       }
                       if (routeSnapshot.connectionState ==
                           ConnectionState.waiting) {
@@ -466,14 +472,13 @@ class _DriverHomePageState extends State<DriverHomePage> {
                       List<DocumentReference> stationRefs = routeSnapshot
                           .data!['stationRefs']
                           .cast<DocumentReference>();
-
                       // Retrieve the bus document
                       return FutureBuilder<DocumentSnapshot>(
                         future: busRef.get(),
                         builder: (BuildContext context,
                             AsyncSnapshot<DocumentSnapshot> busSnapshot) {
                           if (busSnapshot.hasError) {
-                            return Text('Error: ${busSnapshot.error}');
+                            // return Text('Error: ${busSnapshot.error}');
                           }
                           if (busSnapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -502,8 +507,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                 AsyncSnapshot<List<DocumentSnapshot>>
                                 stationSnapshots) {
                               if (stationSnapshots.hasError) {
-                                return Text(
-                                    'Error: ${stationSnapshots.error}');
+                                // return Text('Error: ${stationSnapshots.error}');
                               }
                               if (stationSnapshots.connectionState ==
                                   ConnectionState.waiting) {
@@ -540,8 +544,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                     .latitude, // Retrieve latitude
                                 stationSnapshot['location']
                                     .longitude, // Retrieve longitude
-                              ))
-                                  .toList();
+                              )).toList();
 
                               return DriverRequestCard(
                                 ticketsList: tickets,
@@ -557,6 +560,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                     ? stationNames.last
                                     : 'Unknown',
                               );
+
                             },
                           );
                         },

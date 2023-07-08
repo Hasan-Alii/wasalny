@@ -20,6 +20,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // final emailController = TextEditingController();
+  // final passwordController = TextEditingController();
   final emailController = TextEditingController(text: 'ziad@gmail.com');
   final passwordController = TextEditingController(text: 'ziad@gmail.com');
 
@@ -38,10 +40,10 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
-                  Image.asset('assets/images/MainPageBus2.png', color: Color(0xFF040C4D)),
-                  const SizedBox(height: 50),
+                  Image.asset('assets/images/MainPageBus2.png', color: Color(0xFF040C4D),),
+                  const SizedBox(height: 10),
                   Text(
-                    "Welcome To Driver Application",
+                    "Welcome To UniBus Driver App",
                     // "Welcome To UniBus Driver",
                     style: TextStyle(
                       color: appBlue,
@@ -97,7 +99,6 @@ class _LoginPageState extends State<LoginPage> {
                   //     ],
                   //   ),
                   // ),
-
                   const SizedBox(height: 25),
                   Container(
                     height: 60,

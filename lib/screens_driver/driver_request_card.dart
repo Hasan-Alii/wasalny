@@ -17,7 +17,6 @@ class DriverRequestCard extends StatelessWidget {
   final List<String> stationNamesList;
   List<dynamic> ticketsList;
 
-
   DriverRequestCard({
     required this.tripEnd,
     required this.tripStart,
@@ -27,6 +26,11 @@ class DriverRequestCard extends StatelessWidget {
     required this.stationNamesList,
     required this.ticketsList,
   });
+
+  // String tripstart = tripStart.substring(tripStart.length-3, tripStart.length-1;
+  // static String tripend = tripEnd;
+  //
+  // DateTime dateTime = DateTime.parse(tripEnd);
 
   @override
   Widget build(BuildContext context) {
@@ -66,28 +70,42 @@ class DriverRequestCard extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            '${tripStart}',
+                            "تبدأ في: ${tripStart.substring(tripStart.length - 13, tripStart.length - 7)}",
                             // DateFormat('hh:mm aa')
                             //     .format(DateTime.now()),
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 22,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'تنتهي في $tripEnd',
-                          // DateFormat('hh:mm').format(
-                          //   DayOfMonth()
-                          //       .addHourAndMinute(1, 30),
-                          style: TextStyle(
-                              color: Colors.grey[500],
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              'تنتهي في ${tripEnd.substring(tripEnd.length - 13, tripEnd.length - 7)}',
+                              // DateFormat('hh:mm').format(
+                              //   DayOfMonth()
+                              //       .addHourAndMinute(1, 30),
+                              style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Text(
+                            'عدد الركاب: ${ticketsList.length}',
+                            // DateFormat('hh:mm').format(
+                            //   DayOfMonth()
+                            //       .addHourAndMinute(1, 30),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -100,8 +118,8 @@ class DriverRequestCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0, 20, 0, 20),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
                         child: Image.asset(
                           'assets/images/PinBus.png',
                           color: const Color(0xFF040C4D),
@@ -125,8 +143,8 @@ class DriverRequestCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16, 0, 8, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(16, 0, 8, 0),
                           child: TextButton(
                             style: ButtonStyle(
                                 backgroundColor:
@@ -150,7 +168,11 @@ class DriverRequestCard extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => BusStations(ticketslist: ticketsList ,stationNames: stationNamesList, latLng: latLngList,),
+                                  builder: (context) => BusStations(
+                                    ticketslist: ticketsList,
+                                    stationNames: stationNamesList,
+                                    latLng: latLngList,
+                                  ),
                                 ),
                               );
                             },

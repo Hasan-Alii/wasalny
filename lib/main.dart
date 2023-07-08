@@ -20,6 +20,8 @@ String dEmail='';
 String dPhone='';
 String dId='';
 String dDoc='';
+List<String> status = [];
+
 
 
 Future<void> main() async {
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'UniBus',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

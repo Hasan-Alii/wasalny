@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wasalny/screens_driver/rider1.dart';
 import 'boarding.dart';
 import 'logOut.dart';
 import 'map_page.dart';
@@ -100,10 +101,10 @@ class _NextStationState extends State<NextStation> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
+        leadingWidth: 0,
         leading: BackButton(
-          color: Colors.white,
+          color: Colors.black,
           onPressed: () {
-            Navigator.pop(context);
           },
         ),
         backgroundColor: Colors.black,
@@ -274,7 +275,7 @@ class _NextStationState extends State<NextStation> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LogoutScreen(),
+                          builder: (context) => Rider1(ticketsList: widget.ticketsList),
                         ));
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -348,7 +349,7 @@ class _NextStationState extends State<NextStation> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LogoutScreen(),
+                          builder: (context) => Rider1(ticketsList: widget.ticketsList),
                         ));
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

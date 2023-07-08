@@ -25,14 +25,14 @@ class BusStations extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF040C4D),
+        leadingWidth: 0,
         leading: BackButton(
-          color: Colors.white,
+          color: Color(0xFF040C4D),
           onPressed: () {
-            Navigator.pop(context);
           },
         ),
-        title: const Text('مسار الرحلة'),
+        backgroundColor: Color(0xFF040C4D),
+        title:  Center(child: Text('مسار الرحلة', style: TextStyle(fontSize: 22),)),
       ),
       body: Column(
         children: [

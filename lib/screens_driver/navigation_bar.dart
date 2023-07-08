@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+import 'package:wasalny/screens_driver/second_screen.dart';
 import 'settings_screen.dart';
 import 'package:wasalny/screens_driver/driver_home_page.dart';
 
@@ -15,7 +16,7 @@ class _NavBarWidget extends State<NavBarWidget> {
     DriverHomePage(
     // driverEmail: '',
     ),
-    SettingsPageWidget(),
+    SecondScreen(),
     SettingsPageWidget(),
   ];
 

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:wasalny/screens_driver/map_page.dart';
+import 'package:wasalny/main.dart';
 import 'maher screen.dart';
 import 'next_station.dart';
 
@@ -29,7 +30,12 @@ class _BoardingState extends State<Boarding> {
     'ziad amer',
     'Ziad Alaa',
     'amer',
-    'Alaa'
+    'Alaa',
+    'hasan',
+    'hussam',
+    'hazem',
+    'dalia',
+    'manar',
   ];
 
   @override
@@ -45,19 +51,18 @@ class _BoardingState extends State<Boarding> {
 
   }
   Widget build(BuildContext context) {
-    bool _checkbox = false;
 
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          leadingWidth: 0,
           leading: BackButton(
-            color: Colors.white,
+            color: Color(0xFF040C4D),
             onPressed: () {
-              Navigator.pop(context);
             },
           ),
           backgroundColor: Color(0xFF040C4D),
-          title: Text('دخول الركاب'),
+          title: Center(child: Text('دخول الركاب')),
         ),
         body: Column(
             // crossAxisAlignment: CrossAxisAlignment.center,
@@ -217,9 +222,8 @@ class _BoardingState extends State<Boarding> {
                                               setState(() {
                                                 print(widget.newStaion[index]
                                                     ['status']);
-                                                widget.newStaion[index]
-                                                    ['status'] = 'notsigned';
                                                 names.removeAt(index);
+                                                status.add('0');
                                                 widget.newStaion
                                                     .removeAt(index);
                                               });
@@ -255,9 +259,8 @@ class _BoardingState extends State<Boarding> {
                                               setState(() {
                                                 print(widget.newStaion[index]
                                                     ['status']);
-                                                widget.newStaion[index]
-                                                    ['status'] = 'signed';
                                                 names.removeAt(index);
+                                                status.add('1');
                                                 widget.newStaion
                                                     .removeAt(index);
                                               });
@@ -298,18 +301,18 @@ class _BoardingState extends State<Boarding> {
                           MaterialStateProperty.all<Color>(Colors.white),
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
-                      // // if (names.isEmpty) {
-                      //   Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //         builder: (context) => NextStation(
-                      //           latLngList: widget.latLng,
-                      //           stationsList: widget.stationNames,
-                      //           ticketsList: widget.tickets,
-                      //         ),
-                      //       ));
-                      // // }
+                      if (widget.newStaion.isEmpty) {
+                        Navigator.pop(context);
+                      }
+                      else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('برجاء تسجيل جميع الركاب'),
+                            duration: Duration(seconds: 3),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     },
                     child: Center(
                       child: Text(

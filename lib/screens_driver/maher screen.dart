@@ -104,10 +104,10 @@ class _MaherScreenState extends State<MaherScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
+        leadingWidth: 0,
         leading: BackButton(
-          color: Colors.white,
+          color: Colors.black,
           onPressed: () {
-            Navigator.pop(context);
           },
         ),
         backgroundColor: Colors.black,
