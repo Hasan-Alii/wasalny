@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "1072062952413",
+    "firebase_url": "https://wasalny-38fa7-default-rtdb.firebaseio.com",
     "project_id": "wasalny-38fa7",
     "storage_bucket": "wasalny-38fa7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1072062952413:android:c00f9f5e4d041bb64abc34",
+        "mobilesdk_app_id": "1:1072062952413:android:694823a0c00ab4664abc34",
         "android_client_info": {
-          "package_name": "com.example.wasalny"
+          "package_name": "com.admindashboard.admin_dashboard"
         }
       },
       "oauth_client": [
@@ -29,6 +30,73 @@
             {
               "client_id": "1072062952413-9aj819i5o7fbm69sm3f1895n92ok22g0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1072062952413-h1fpppfilnid61b7gt7pbmarg9e3o3be.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.admindashboard.adminDashboard"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072062952413:android:c00f9f5e4d041bb64abc34",
+        "android_client_info": {
+          "package_name": "com.example.wasalny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072062952413-6us3d32b898qufdi55bgddfqj553k0t3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wasalny",
+            "certificate_hash": "9c6135c78a1a9169301671a01afb937c5ab5020d"
+          }
+        },
+        {
+          "client_id": "1072062952413-bgmklaq5g4mlj8mbq5ln20j7a4h91sgo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wasalny",
+            "certificate_hash": "f5f0264e825a42cbc6c5d0e9f2693808c8c93163"
+          }
+        },
+        {
+          "client_id": "1072062952413-um36sa25q7livv1g0p5c3ik2refkbmsb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wasalny",
+            "certificate_hash": "36de6caf423e411d270d5d3eaa2fc6167acf7b44"
+          }
+        },
+        {
+          "client_id": "1072062952413-9aj819i5o7fbm69sm3f1895n92ok22g0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoMAR2zlGK7rIsciK6UJWNiKUlP13x1yE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072062952413-9aj819i5o7fbm69sm3f1895n92ok22g0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1072062952413-h1fpppfilnid61b7gt7pbmarg9e3o3be.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.admindashboard.adminDashboard"
+              }
             }
           ]
         }
